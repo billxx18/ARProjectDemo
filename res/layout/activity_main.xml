@@ -1,0 +1,146 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_SecLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bk"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <ImageButton
+        android:id="@+id/game_bk"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:background="#00000000"
+        android:onClick="onFirstStairMenuBtnClick"
+        android:scaleType="fitXY"
+        android:src="@drawable/button_back"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/menu_load"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/menu_logo"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+        <ImageView
+            android:id="@+id/menu_anime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/menu_load"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageButton
+            android:id="@+id/menu_games"
+            android:layout_width="120dip"
+            android:layout_height="33dip"
+            android:layout_marginTop="15dip"
+            android:background="#00000000"
+            android:onClick="onFirstStairMenuBtnClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_menu_g" />
+
+        <ImageButton
+            android:id="@+id/menu_rankings"
+            android:layout_width="120dip"
+            android:layout_height="33dip"
+            android:layout_marginTop="15dip"
+            android:background="#00000000"
+            android:onClick="onFirstStairMenuBtnClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_menu_r" />
+
+        <ImageButton
+            android:id="@+id/menu_settings"
+            android:layout_width="120dip"
+            android:layout_height="33dip"
+            android:layout_marginTop="15dip"
+            android:background="#00000000"
+            android:onClick="onFirstStairMenuBtnClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_menu_s" />
+
+        <ImageButton
+            android:id="@+id/menu_about"
+            android:layout_width="120dip"
+            android:layout_height="33dip"
+            android:layout_marginTop="15dip"
+            android:background="#00000000"
+            android:onClick="onFirstStairMenuBtnClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_menu_cr" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/load_games"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/menu_load"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageButton
+            android:id="@+id/menu_game_continue"
+            android:layout_width="120dip"
+            android:layout_height="33dip"
+            android:layout_marginTop="15dip"
+            android:background="#00000000"
+            android:onClick="onSecondStairMenuBtnClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/button_menu_c"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/menu_game_new"
+            android:layout_width="120dip"
+            android:layout_height="33dip"
+            android:layout_marginTop="15dip"
+            android:background="#00000000"
+            android:onClick="onSecondStairMenuBtnClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/button_menu_ng" />
+
+        <ImageButton
+            android:id="@+id/menu_extrasgames"
+            android:layout_width="120dip"
+            android:layout_height="33dip"
+            android:layout_marginTop="15dip"
+            android:background="#00000000"
+            android:onClick="onSecondStairMenuBtnClick"
+            android:scaleType="fitXY"
+            android:src="@drawable/button_menu_eg" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50sp"
+        android:max="100"
+        android:visibility="gone" />
+
+</RelativeLayout>

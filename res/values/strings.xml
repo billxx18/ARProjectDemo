@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">芭樂牛奶</string>
+    <string name="action_settings">設定</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="main_title">標題</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_rankings">排行榜</string>
+    <string name="menu_extras">額外內容</string>
+    <string name="menu_games">開始遊戲</string>
+    <string name="menu_game_new">新遊戲</string>
+    <string name="menu_game_continue">繼續遊戲</string>
+    <string name="menu_extras_games">小遊戲</string>
+    <string name="menu_credit">製作群</string>
+    <string name="credit_team">製作團隊</string>
+    <string name="credit_mem1">比爾 黃</string>
+    <string name="credit_mem2">凱洛 彭</string>
+    <string name="credit_mem3">傑瑞 王</string>
+    <string name="credit_mem4">辛蒂 賴</string>
+    <string name="extras_game1">小遊戲一</string>
+    <string name="extras_game2">小遊戲二</string>
+    <string name="extras_game3">小遊戲三</string>
+    <string name="extras_game4">小遊戲四</string>
+    <string name="extras_game5">小遊戲五</string>
+    <string name="extras_game6">小遊戲六</string>
+    <string name="extras_game7">小遊戲七</string>
+    <string name="extras_game8">小遊戲八</string>
+    <string name="extras_game9">小遊戲九</string>
+    <string name="extras_game10">小遊戲十</string>
+    <string name="desc">EGBtn</string>
+    <string name="NoNetwork">網路無法使用</string>
+    <string name="CheckNetworkSettings">確認網路設定是否開啟？</string>
+    <string name="NoGPS">GPS無法使用</string>
+    <string name="CheckGPSSettings">確認GPS設定是否開啟？</string>
+    <string name="Ok">確認</string>
+    <string name="Yes">是</string>
+    <string name="No">否</string>
+    <string name="Retry">重試</string>
+    <string name="LeavingAlert">退出警告</string>
+    <string name="LeavingMessage">確定要退出程式？</string>
+    <string name="left">&lt;</string>
+    <string name="right">&gt;</string>
+    <string name="trad_chinese">繁體中文</string>
+    <string name="english">English</string>
+    <string name="VolChange_title">音量控制</string>
+    <string name="Language_title">語言選擇</string>
+    <string name="title_activity_rankings">RankingsActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="back">BACK</string>
+    <string name="title_activity_extra_games">ExtraGamesActivity</string>
+    <string name="title_activity_game_progress">GameProgressActivity</string>
+    <string name="title_activity_stage_one">StageOneActivity</string>
+    <string name="stageOne">This is Stage No. 1</string>
+    <string name="returnResult">Return Result for Test</string>
+
+</resources>

@@ -1,0 +1,14 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameProgressActivity" >
+
+    <com.google.android.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:apiKey="0iFI9pJCwoHp-_j1uVsNwZ72OiLlIehO4irtLGg"
+        android:clickable="false" />
+
+</RelativeLayout>

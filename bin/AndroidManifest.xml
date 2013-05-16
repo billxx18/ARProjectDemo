@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="project.demo.arprojectdemo"
+    android:installLocation="preferExternal"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+
+    <uses-sdk
+        android:minSdkVersion="13"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        <uses-library android:name="com.google.android.maps" />
+
+        <activity
+            android:name="project.demo.arprojectdemo.MainActivity"
+            android:configChanges="locale"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.RankingsActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_rankings"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.SettingsActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.AboutActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_about"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.ExtraGamesActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_extra_games"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.GameProgressActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_game_progress"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageOneActivity"
+            android:label="@string/title_activity_stage_one" >
+        </activity>
+    </application>
+
+</manifest>
