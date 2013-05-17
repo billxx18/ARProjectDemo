@@ -54,5 +54,8 @@
     <string name="title_activity_stage_one">StageOneActivity</string>
     <string name="stageOne">This is Stage No. 1</string>
     <string name="returnResult">Return Result for Test</string>
+    <string name="title_activity_stage_two">StageTwoActivity</string>
+    <string name="title_activity_stage_three">StageThreeActivity</string>
+    <string name="title_activity_result">ResultActivity</string>
 
 </resources>

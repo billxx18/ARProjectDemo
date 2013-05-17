@@ -71,7 +71,25 @@
         </activity>
         <activity
             android:name="project.demo.arprojectdemo.StageOneActivity"
-            android:label="@string/title_activity_stage_one" >
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_one"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageTwoActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_two"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageThreeActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_three"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.ResultActivity"
+            android:label="@string/title_activity_result" >
         </activity>
     </application>
 

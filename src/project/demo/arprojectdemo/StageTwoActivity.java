@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
 
-public class StageOneActivity extends Activity {
+public class StageTwoActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

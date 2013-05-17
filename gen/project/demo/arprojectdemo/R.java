@@ -77,23 +77,26 @@ public final class R {
         public static final int sidemenu_btn_press=0x7f020035;
     }
     public static final class id {
-        public static final int action_settings=0x7f080010;
-        public static final int game_bk=0x7f080002;
-        public static final int load_games=0x7f08000b;
-        public static final int main_SecLayout=0x7f080001;
+        public static final int action_settings=0x7f080013;
+        public static final int game_bk=0x7f080005;
+        public static final int latitude=0x7f080002;
+        public static final int load_games=0x7f08000e;
+        public static final int longitude=0x7f080001;
+        public static final int main_SecLayout=0x7f080004;
         public static final int mapView=0x7f080000;
-        public static final int menu=0x7f080006;
-        public static final int menu_about=0x7f08000a;
-        public static final int menu_anime=0x7f080005;
-        public static final int menu_extrasgames=0x7f08000e;
-        public static final int menu_game_continue=0x7f08000c;
-        public static final int menu_game_new=0x7f08000d;
-        public static final int menu_games=0x7f080007;
-        public static final int menu_load=0x7f080003;
-        public static final int menu_logo=0x7f080004;
-        public static final int menu_rankings=0x7f080008;
-        public static final int menu_settings=0x7f080009;
-        public static final int progressBar=0x7f08000f;
+        public static final int menu=0x7f080009;
+        public static final int menu_about=0x7f08000d;
+        public static final int menu_anime=0x7f080008;
+        public static final int menu_extrasgames=0x7f080011;
+        public static final int menu_game_continue=0x7f08000f;
+        public static final int menu_game_new=0x7f080010;
+        public static final int menu_games=0x7f08000a;
+        public static final int menu_load=0x7f080006;
+        public static final int menu_logo=0x7f080007;
+        public static final int menu_rankings=0x7f08000b;
+        public static final int menu_settings=0x7f08000c;
+        public static final int progressBar=0x7f080012;
+        public static final int result=0x7f080003;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;
@@ -101,8 +104,11 @@ public final class R {
         public static final int activity_game_progress=0x7f030002;
         public static final int activity_main=0x7f030003;
         public static final int activity_rankings=0x7f030004;
-        public static final int activity_settings=0x7f030005;
-        public static final int activity_stage_one=0x7f030006;
+        public static final int activity_result=0x7f030005;
+        public static final int activity_settings=0x7f030006;
+        public static final int activity_stage_one=0x7f030007;
+        public static final int activity_stage_three=0x7f030008;
+        public static final int activity_stage_two=0x7f030009;
     }
     public static final class menu {
         public static final int about=0x7f070000;
@@ -110,8 +116,11 @@ public final class R {
         public static final int game_progress=0x7f070002;
         public static final int main=0x7f070003;
         public static final int rankings=0x7f070004;
-        public static final int settings=0x7f070005;
-        public static final int stage_one=0x7f070006;
+        public static final int result=0x7f070005;
+        public static final int settings=0x7f070006;
+        public static final int stage_one=0x7f070007;
+        public static final int stage_three=0x7f070008;
+        public static final int stage_two=0x7f070009;
     }
     public static final class string {
         public static final int CheckGPSSettings=0x7f05001f;
@@ -164,8 +173,11 @@ public final class R {
         public static final int title_activity_extra_games=0x7f050030;
         public static final int title_activity_game_progress=0x7f050031;
         public static final int title_activity_rankings=0x7f05002c;
+        public static final int title_activity_result=0x7f050037;
         public static final int title_activity_settings=0x7f05002d;
         public static final int title_activity_stage_one=0x7f050032;
+        public static final int title_activity_stage_three=0x7f050036;
+        public static final int title_activity_stage_two=0x7f050035;
         public static final int trad_chinese=0x7f050028;
     }
     public static final class style {

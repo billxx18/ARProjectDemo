@@ -18,6 +18,7 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 
 import android.location.Location;
@@ -33,6 +34,7 @@ import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameProgressActivity extends MapActivity implements
@@ -42,6 +44,7 @@ public class GameProgressActivity extends MapActivity implements
 	private MapController mapController; // 宣告google map控制物件
 	String result = "no event";
 	String url = "http://140.119.19.15/gpsfindevent.php";
+	private boolean[] stageAvailability = { true, false, false };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,8 @@ public class GameProgressActivity extends MapActivity implements
 
 	public void onLocationChanged(Location location) { // 當地點改變時
 		getLocation(location);
+		setupMap(location.getLongitude(), location.getLatitude());
+
 	}
 
 	public void onProviderDisabled(String arg0) { // 當GPS或網路定位功能關閉時
@@ -116,10 +121,24 @@ public class GameProgressActivity extends MapActivity implements
 				.getLastKnownLocation(bestProvider).getLatitude()); // 設定地圖預設值
 	}
 
-	private void setupMap(double longitude, double latitude) {
-		GeoPoint center = new GeoPoint((int) (24.986009 * 1000000),
-				(int) (121.575136 * 1000000)); // 設定地圖座標值:緯度,經度
+	private MyLocationOverlay mylayer;
 
+	private void setupMap(double longitude, double latitude) {
+		// List<Overlay> overlays = map.getOverlays();
+		// mylayer = new MyLocationOverlay(this, map);
+		// mylayer.runOnFirstFix(new Runnable() {
+		// public void run() {
+		// // Zoom in to current location
+		// mapController.setZoom(17);
+		// mapController.animateTo(mylayer.getMyLocation());
+		// }
+		// });
+		// overlays.add(mylayer);
+
+		// GeoPoint center = new GeoPoint((int) (24.986009 * 1000000),
+		// (int) (121.575136 * 1000000)); // 設定地圖座標值:緯度,經度
+		GeoPoint center = new GeoPoint((int) (latitude * 1000000),
+				(int) (longitude * 1000000));
 		List<Overlay> overlays = map.getOverlays();
 		Drawable point_star = getResources().getDrawable(
 				android.R.drawable.star_on);
@@ -135,6 +154,7 @@ public class GameProgressActivity extends MapActivity implements
 		// .setStreetView：街景圖
 
 		mapController.setZoom(18); // 設定放大倍率1(地球)-21(街景)
+		map.setBuiltInZoomControls(true);
 		mapController.animateTo(center); // 指定地圖中央點
 	}
 
@@ -147,8 +167,13 @@ public class GameProgressActivity extends MapActivity implements
 	private void getLocation(Location location) { // 將定位資訊顯示在畫面中
 		if (location != null) {
 
+			TextView longitude_txt = (TextView) findViewById(R.id.longitude);
+			TextView latitude_txt = (TextView) findViewById(R.id.latitude);
+
 			Double longitude = location.getLongitude(); // 取得經度
 			Double latitude = location.getLatitude(); // 取得緯度
+			longitude_txt.setText(String.valueOf(longitude));
+			latitude_txt.setText(Double.toString(latitude));
 			String longitude_text = String.valueOf(longitude);
 			String latitude_text = Double.toString(latitude);
 			String msg = longitude_text + "," + latitude_text;
@@ -163,25 +188,28 @@ public class GameProgressActivity extends MapActivity implements
 				e.printStackTrace();
 			}
 
-			if (result.contains("eventA")) {
+			if ((result.contains("eventA")) && (stageAvailability[0])) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
 				Intent intent = new Intent(GameProgressActivity.this,
 						StageOneActivity.class);
 				startActivityForResult(intent, 1);
 				GameProgressActivity.this.finish();
+
 			}
-			if (result.contains("eventB")) {
+			if ((result.contains("eventB")) && (stageAvailability[1])) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-				// Intent intent =new Intent(MainActivity.this,event1.class);
-				// startActivity(intent);
+				Intent intent = new Intent(GameProgressActivity.this,
+						StageTwoActivity.class);
+				startActivityForResult(intent, 2);
+				GameProgressActivity.this.finish();
 			}
-			if (result.contains("eventC")) {
+			if ((result.contains("eventC")) && (stageAvailability[2])) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
 				Intent intent = new Intent(GameProgressActivity.this,
-						StageOneActivity.class);
-				startActivityForResult(intent, 1);
+						StageThreeActivity.class);
+				startActivityForResult(intent, 3);
 				GameProgressActivity.this.finish();
 			}
 			if (result.contains("eventD")) {
@@ -231,6 +259,21 @@ public class GameProgressActivity extends MapActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case 1:
+			stageAvailability[0] = false;
+			stageAvailability[1] = true;
+			break;
+		case 2:
+			stageAvailability[1] = false;
+			stageAvailability[2] = true;
+			break;
+		case 3:
+			stageAvailability[2] = false;
+			Toast.makeText(this, "All Stages Completed!", Toast.LENGTH_LONG)
+					.show();
+			Intent toResultIntent = new Intent();
+			toResultIntent.setClass(GameProgressActivity.this,
+					ResultActivity.class);
+			startActivity(toResultIntent);
 			GameProgressActivity.this.finish();
 			break;
 		default:
@@ -272,7 +315,7 @@ public class GameProgressActivity extends MapActivity implements
 	protected void onResume() {
 		// // TODO Auto-generated method stub
 		super.onResume();
-
+		// mylayer.enableMyLocation();
 		// 指定向GPS裝置註冊要求取得地理資訊
 		lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, this);
 
@@ -303,6 +346,7 @@ public class GameProgressActivity extends MapActivity implements
 		super.onPause();
 		// if (getService) {
 		lms.removeUpdates(this); // 離開頁面時停止更新
+		// mylayer.disableMyLocation();
 		super.onPause();
 	}
 }
