@@ -194,7 +194,6 @@ public class GameProgressActivity extends MapActivity implements
 				Intent intent = new Intent(GameProgressActivity.this,
 						StageOneActivity.class);
 				startActivityForResult(intent, 1);
-				GameProgressActivity.this.finish();
 
 			}
 			if ((result.contains("eventB")) && (stageAvailability[1])) {
@@ -202,7 +201,6 @@ public class GameProgressActivity extends MapActivity implements
 				Intent intent = new Intent(GameProgressActivity.this,
 						StageTwoActivity.class);
 				startActivityForResult(intent, 2);
-				GameProgressActivity.this.finish();
 			}
 			if ((result.contains("eventC")) && (stageAvailability[2])) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
@@ -210,7 +208,6 @@ public class GameProgressActivity extends MapActivity implements
 				Intent intent = new Intent(GameProgressActivity.this,
 						StageThreeActivity.class);
 				startActivityForResult(intent, 3);
-				GameProgressActivity.this.finish();
 			}
 			if (result.contains("eventD")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
@@ -242,7 +239,6 @@ public class GameProgressActivity extends MapActivity implements
 				Intent intent = new Intent(GameProgressActivity.this,
 						StageOneActivity.class);
 				startActivityForResult(intent, 1);
-				GameProgressActivity.this.finish();
 			}
 		} else {
 			Toast.makeText(this, "無法定位座標", Toast.LENGTH_LONG).show();

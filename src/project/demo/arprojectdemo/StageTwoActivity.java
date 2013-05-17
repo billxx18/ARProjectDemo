@@ -13,7 +13,6 @@ public class StageTwoActivity extends Activity {
 	}
 
 	public void onReturnResultBtnClick(View v) {
-		setResult(RESULT_OK);
 		finish();
 	}
 
