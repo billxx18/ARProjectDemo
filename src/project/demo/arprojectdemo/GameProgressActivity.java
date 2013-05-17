@@ -147,7 +147,9 @@ public class GameProgressActivity extends MapActivity implements
 				point_star.getMinimumHeight());
 
 		Landmark myLandmark = new Landmark(point_star, center);
-		overlays.add(myLandmark); // 將地標層加入地圖座標層中
+		if (center != null) {
+			overlays.add(myLandmark); // 將地標層加入地圖座標層中
+		}
 		map.setSatellite(false);
 		// .setTraffic(true)：一般地圖
 		// .setSatellite(true)：衛星地圖
