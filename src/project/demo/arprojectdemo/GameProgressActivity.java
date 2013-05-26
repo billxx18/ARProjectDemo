@@ -50,7 +50,8 @@ public class GameProgressActivity extends MapActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_progress);
-
+		
+		
 		map = (MapView) findViewById(R.id.mapView); // 載入google map物件
 		mapController = map.getController(); // 設定控制的map物件
 		LocationManager status = (LocationManager) (this
@@ -67,7 +68,7 @@ public class GameProgressActivity extends MapActivity implements
 		String tMsg = "";
 		try {
 			// 指定向GPS裝置註冊要求取得地理資訊
-			lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0,
+			lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
 					this);
 		} catch (Exception e) {
 			tMsg = e.getMessage();
@@ -213,8 +214,9 @@ public class GameProgressActivity extends MapActivity implements
 			}
 			if (result.contains("eventD")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-				// Intent intent =new Intent(MainActivity.this,event1.class);
-				// startActivity(intent);
+				Intent intent = new Intent(GameProgressActivity.this,
+						StageFourActivity.class);
+				startActivityForResult(intent, 4);
 			}
 			if (result.contains("eventE")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
@@ -232,6 +234,11 @@ public class GameProgressActivity extends MapActivity implements
 				// startActivity(intent);
 			}
 			if (result.contains("eventH")) {
+				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+				// Intent intent =new Intent(MainActivity.this,event1.class);
+				// startActivity(intent);
+			}
+			if (result.contains("eventI")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 				// Intent intent =new Intent(MainActivity.this,event1.class);
 				// startActivity(intent);

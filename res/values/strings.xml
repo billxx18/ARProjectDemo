@@ -56,6 +56,12 @@
     <string name="returnResult">Return Result for Test</string>
     <string name="title_activity_stage_two">StageTwoActivity</string>
     <string name="title_activity_stage_three">StageThreeActivity</string>
+    <string name="title_activity_stage_four">StageFourActivity</string>
+    <string name="title_activity_stage_five">StageFiveActivity</string>
+    <string name="title_activity_stage_six">StageSixActivity</string>
+    <string name="title_activity_stage_seven">StageSevenActivity</string>
+    <string name="title_activity_stage_eight">StageEightActivity</string>
+    <string name="title_activity_stage_nine">StageNineActivity</string>
     <string name="title_activity_result">ResultActivity</string>
 
 </resources>

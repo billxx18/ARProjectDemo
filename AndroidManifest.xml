@@ -20,6 +20,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -85,6 +86,48 @@
             android:name="project.demo.arprojectdemo.StageThreeActivity"
             android:configChanges="locale"
             android:label="@string/title_activity_stage_three"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageFourActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_four"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageFiveActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_five"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageSixActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_six"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageSevenActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_seven"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageEightActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_eight"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageNineActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_nine"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.ARcamera"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_nine"
             android:screenOrientation="landscape" >
         </activity>
         <activity
