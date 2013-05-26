@@ -50,29 +50,29 @@ public class GameProgressActivity extends MapActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_progress);
-		
-		
-		map = (MapView) findViewById(R.id.mapView); // 載入google map物件
-		mapController = map.getController(); // 設定控制的map物件
-		LocationManager status = (LocationManager) (this
-				.getSystemService(Context.LOCATION_SERVICE));
-		if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)
-				|| status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-			// 如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
-			locationServiceInitial();
-		} else {
-			Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
-			startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); // 開啟設定頁面
-		}
-		setupMap();
-		String tMsg = "";
-		try {
-			// 指定向GPS裝置註冊要求取得地理資訊
-			lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-					this);
-		} catch (Exception e) {
-			tMsg = e.getMessage();
-		}
+
+		// map = (MapView) findViewById(R.id.mapView); // 載入google map物件
+		// mapController = map.getController(); // 設定控制的map物件
+		// LocationManager status = (LocationManager) (this
+		// .getSystemService(Context.LOCATION_SERVICE));
+		// if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)
+		// || status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+		// // 如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
+		// locationServiceInitial();
+		// } else {
+		// Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
+		// startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+		// // 開啟設定頁面
+		// }
+		// setupMap();
+		// String tMsg = "";
+		// try {
+		// // 指定向GPS裝置註冊要求取得地理資訊
+		// lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+		// this);
+		// } catch (Exception e) {
+		// tMsg = e.getMessage();
+		// }
 	}
 
 	public void onPassBtnClick(View v) {
@@ -191,21 +191,24 @@ public class GameProgressActivity extends MapActivity implements
 				e.printStackTrace();
 			}
 
-			if ((result.contains("eventA")) && (stageAvailability[0])) {
+			if (result.contains("eventA")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
+				// Intent intent = new Intent(GameProgressActivity.this,
+				// StageOneActivity.class);
 				Intent intent = new Intent(GameProgressActivity.this,
-						StageOneActivity.class);
+						ARcamera.class);
+				intent.putExtra("game", "1");
 				startActivityForResult(intent, 1);
 
 			}
-			if ((result.contains("eventB")) && (stageAvailability[1])) {
+			if (result.contains("eventB")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						StageTwoActivity.class);
 				startActivityForResult(intent, 2);
 			}
-			if ((result.contains("eventC")) && (stageAvailability[2])) {
+			if (result.contains("eventC")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 
 				Intent intent = new Intent(GameProgressActivity.this,
@@ -214,40 +217,35 @@ public class GameProgressActivity extends MapActivity implements
 			}
 			if (result.contains("eventD")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+
 				Intent intent = new Intent(GameProgressActivity.this,
-						StageFourActivity.class);
+						ARcamera.class);
+				intent.putExtra("game", "4");
 				startActivityForResult(intent, 4);
 			}
 			if (result.contains("eventE")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-				// Intent intent =new Intent(MainActivity.this,event1.class);
-				// startActivity(intent);
+
 			}
 			if (result.contains("eventF")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-				// Intent intent =new Intent(MainActivity.this,event1.class);
-				// startActivity(intent);
+
 			}
 			if (result.contains("eventG")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-				// Intent intent =new Intent(MainActivity.this,event1.class);
-				// startActivity(intent);
+
 			}
 			if (result.contains("eventH")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-				// Intent intent =new Intent(MainActivity.this,event1.class);
-				// startActivity(intent);
+
 			}
 			if (result.contains("eventI")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-				// Intent intent =new Intent(MainActivity.this,event1.class);
-				// startActivity(intent);
+
 			}
 			if (result.contains("eventz")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-				Intent intent = new Intent(GameProgressActivity.this,
-						StageOneActivity.class);
-				startActivityForResult(intent, 1);
+
 			}
 		} else {
 			Toast.makeText(this, "無法定位座標", Toast.LENGTH_LONG).show();
@@ -322,7 +320,8 @@ public class GameProgressActivity extends MapActivity implements
 		super.onResume();
 		// mylayer.enableMyLocation();
 		// 指定向GPS裝置註冊要求取得地理資訊
-		lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, this);
+		// lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0,
+		// this);
 
 	}
 
@@ -350,8 +349,7 @@ public class GameProgressActivity extends MapActivity implements
 	protected void onPause() {
 		super.onPause();
 		// if (getService) {
-		lms.removeUpdates(this); // 離開頁面時停止更新
+		// lms.removeUpdates(this); // 離開頁面時停止更新
 		// mylayer.disableMyLocation();
-		super.onPause();
 	}
 }
