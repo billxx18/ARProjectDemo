@@ -36,7 +36,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 	private SensorManager mSensorManager;
 	private boolean mRegisteredSensor;
 	View viewControl;
-	boolean state, index = false, index4 = false;
+	boolean state, index = false, index4 = false, index6 = false;
 	private Rect mChangeImageBackgroundRect = null;
 
 	@Override
@@ -136,7 +136,16 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 					ARcamera.this.finish();
 
 				}
+			case 6:
+				if (x > 200 && x < 250 && y < 5 && y > -5 && z > 70 && z < 90
+						&& index6 == false) {
+					Intent intent6 = new Intent(ARcamera.this,
+							StageSixCamera.class);
+					startActivityForResult(intent6, 6);
+					index6 = true;
+					ARcamera.this.finish();
 
+				}
 			}
 		}
 	}

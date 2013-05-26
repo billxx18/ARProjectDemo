@@ -127,7 +127,13 @@
         <activity
             android:name="project.demo.arprojectdemo.ARcamera"
             android:configChanges="locale"
-            android:label="@string/title_activity_stage_nine"
+            android:label="@string/title_activity_arcamera"
+            android:screenOrientation="landscape" >
+        </activity>
+         <activity
+            android:name="project.demo.arprojectdemo.StageSixCamera"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_six_camera"
             android:screenOrientation="landscape" >
         </activity>
         <activity

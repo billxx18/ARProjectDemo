@@ -62,6 +62,11 @@
     <string name="title_activity_stage_seven">StageSevenActivity</string>
     <string name="title_activity_stage_eight">StageEightActivity</string>
     <string name="title_activity_stage_nine">StageNineActivity</string>
+    <string name="title_activity_stage_six_camera">StageSixCamera</string>
+    <string name="title_activity_arcamera">ARcamera</string>
     <string name="title_activity_result">ResultActivity</string>
+    <string name="feedback_title">Feedback: </string>
+    <string name="moves_title">Moves: </string>
+    <string name="game_feedback_text">No feedback yet!</string>
 
 </resources>

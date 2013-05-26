@@ -14,7 +14,7 @@ public class StageOneActivity extends Activity {
 
 	public void onReturnResultBtnClick(View v) {
 		finish();
-		
+
 	}
 
 }

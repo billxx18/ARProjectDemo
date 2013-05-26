@@ -87,6 +87,15 @@ public final class R {
     }
     public static final class id {
         public static final int Boss=0x7f08002e;
+        public static final int Button00=0x7f080034;
+        public static final int Button01=0x7f080035;
+        public static final int Button02=0x7f080036;
+        public static final int Button03=0x7f080037;
+        public static final int Button04=0x7f080038;
+        public static final int Button05=0x7f080039;
+        public static final int Button06=0x7f08003a;
+        public static final int Button07=0x7f08003b;
+        public static final int Button08=0x7f08003c;
         public static final int Button1=0x7f08001a;
         public static final int Button10=0x7f080025;
         public static final int Button11=0x7f080026;
@@ -103,8 +112,15 @@ public final class R {
         public static final int Button7=0x7f080021;
         public static final int Button8=0x7f080022;
         public static final int Button9=0x7f080024;
+        public static final int FeedbackText=0x7f080041;
+        public static final int FeedbackTitleText=0x7f08003f;
+        public static final int Game=0x7f080032;
+        public static final int GameField=0x7f080033;
+        public static final int GameField2=0x7f08003d;
+        public static final int MoveCounter=0x7f080040;
+        public static final int MoveText=0x7f08003e;
         public static final int Score=0x7f08002f;
-        public static final int action_settings=0x7f080032;
+        public static final int action_settings=0x7f080043;
         public static final int camerapreview=0x7f080000;
         public static final int game=0x7f080017;
         public static final int game_bk=0x7f080009;
@@ -133,6 +149,7 @@ public final class R {
         public static final int menu_settings=0x7f080010;
         public static final int progressBar=0x7f080016;
         public static final int result=0x7f080007;
+        public static final int source_image=0x7f080042;
         public static final int target=0x7f080030;
         public static final int x=0x7f080001;
         public static final int y=0x7f080002;
@@ -154,8 +171,9 @@ public final class R {
         public static final int activity_stage_one=0x7f03000c;
         public static final int activity_stage_seven=0x7f03000d;
         public static final int activity_stage_six=0x7f03000e;
-        public static final int activity_stage_three=0x7f03000f;
-        public static final int activity_stage_two=0x7f030010;
+        public static final int activity_stage_six_camera=0x7f03000f;
+        public static final int activity_stage_three=0x7f030010;
+        public static final int activity_stage_two=0x7f030011;
     }
     public static final class menu {
         public static final int about=0x7f070000;
@@ -203,6 +221,8 @@ public final class R {
         public static final int extras_game7=0x7f050017;
         public static final int extras_game8=0x7f050018;
         public static final int extras_game9=0x7f050019;
+        public static final int feedback_title=0x7f050040;
+        public static final int game_feedback_text=0x7f050042;
         public static final int hello_world=0x7f050002;
         public static final int left=0x7f050026;
         public static final int main_title=0x7f050003;
@@ -214,14 +234,16 @@ public final class R {
         public static final int menu_games=0x7f050007;
         public static final int menu_rankings=0x7f050005;
         public static final int menu_settings=0x7f050004;
+        public static final int moves_title=0x7f050041;
         public static final int returnResult=0x7f050034;
         public static final int right=0x7f050027;
         public static final int stageOne=0x7f050033;
         public static final int title_activity_about=0x7f05002e;
+        public static final int title_activity_arcamera=0x7f05003e;
         public static final int title_activity_extra_games=0x7f050030;
         public static final int title_activity_game_progress=0x7f050031;
         public static final int title_activity_rankings=0x7f05002c;
-        public static final int title_activity_result=0x7f05003d;
+        public static final int title_activity_result=0x7f05003f;
         public static final int title_activity_settings=0x7f05002d;
         public static final int title_activity_stage_eight=0x7f05003b;
         public static final int title_activity_stage_five=0x7f050038;
@@ -230,6 +252,7 @@ public final class R {
         public static final int title_activity_stage_one=0x7f050032;
         public static final int title_activity_stage_seven=0x7f05003a;
         public static final int title_activity_stage_six=0x7f050039;
+        public static final int title_activity_stage_six_camera=0x7f05003d;
         public static final int title_activity_stage_three=0x7f050036;
         public static final int title_activity_stage_two=0x7f050035;
         public static final int trad_chinese=0x7f050028;
