@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.Menu;
@@ -64,9 +65,18 @@ public class StageFourActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				score = score + 1;
-				;
 				score_text.setText(Integer.toString(score));
-
+				if(score==30)
+				{
+					Intent returnIntent = new Intent();
+					returnIntent.putExtra("result", true);
+					setResult(RESULT_OK, returnIntent);
+				if ((gameProgressTask != null)
+						&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
+					gameProgressTask.cancel(true);
+				}
+				finish();
+				}
 			}
 		});
 		img.setOnTouchListener(imgListener);
@@ -358,7 +368,7 @@ public class StageFourActivity extends Activity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			for (score = 0; score < 30;) {
+			for (score = 0; score < 50;) {
 				if (isCancelled()) {
 					return (null);
 				}

@@ -36,13 +36,15 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 	private SensorManager mSensorManager;
 	private boolean mRegisteredSensor;
 	View viewControl;
-	boolean state, index = false, index4 = false, index6 = false;
+	boolean state, index = false;
+
 	private Rect mChangeImageBackgroundRect = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_arcamera);
+		Toast.makeText(this, "GO-2", Toast.LENGTH_LONG).show();
 
 		getWindow().setFormat(PixelFormat.UNKNOWN);
 		surfaceView = (SurfaceView) findViewById(R.id.camerapreview);
@@ -106,12 +108,13 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			tv1.setText(x1);
 			tv2.setText(y1);
 			tv3.setText(z1);
-			Intent intent = getIntent();
-			String game = intent.getStringExtra("game");
+			String game = getIntent().getStringExtra("game");
+			// Boolean stage_eight_state = getIntent().getExtras().getBoolean(
+			// "state");
 			int games = Integer.parseInt(game);
 			switch (games) {
 			case 1:
-				if (x > 200 && x < 250 && y < 5 && y > -5 && z > 70 && z < 90
+				if (x > 200 && x < 250 && y < 20 && y > -20 && z > 20 && z < 30
 						&& index == false) {
 					//
 					controlInflater = LayoutInflater.from(getBaseContext());
@@ -124,29 +127,73 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 					index = true;
 					img = (ImageView) findViewById(R.id.image);
 					img.setOnTouchListener(imgListener);
-					break;
+
 				}
+				break;
+			case 3:
+				if (x > 50 && x < 150 && y < 5 && y > -5 && z > 70 && z < 90
+						&& index == false) {
+					Intent intent3 = new Intent(ARcamera.this,
+							StageThreeActivity.class);
+					startActivityForResult(intent3, 3);
+					index = true;
+
+				}
+				break;
 			case 4:
-				if (x > 200 && x < 250 && y < 5 && y > -5 && z > 70 && z < 90
-						&& index4 == false) {
+				if (x > 25 && x < 75 && y < 5 && y > -5 && z > 70 && z < 90
+						&& index == false) {
 					Intent intent4 = new Intent(ARcamera.this,
 							StageFourActivity.class);
 					startActivityForResult(intent4, 4);
-					index4 = true;
-					ARcamera.this.finish();
+					index = true;
 
 				}
+				break;
+			case 5:
+				if (x > 50 && x < 150 && y < 5 && y > -5 && z > 70 && z < 90
+						&& index == false) {
+					Intent intent5 = new Intent(ARcamera.this,
+							StageFiveActivity.class);
+					startActivityForResult(intent5, 5);
+					index = true;
+				}
+				break;
 			case 6:
-				if (x > 200 && x < 250 && y < 5 && y > -5 && z > 70 && z < 90
-						&& index6 == false) {
+				if (x > 300 && x < 360 && y < 5 && y > -5 && z > 70 && z < 90
+						&& index == false) {
 					Intent intent6 = new Intent(ARcamera.this,
 							StageSixCamera.class);
 					startActivityForResult(intent6, 6);
-					index6 = true;
-					ARcamera.this.finish();
-
+					index = true;
 				}
+				break;
+			case 7:
+				if (x > 100 && x < 200 && y < 5 && y > -5 && z > 70 && z < 90
+						&& index == false) {
+					Intent intent7 = new Intent(ARcamera.this,
+							StageSevenActivity.class);
+					startActivityForResult(intent7, 7);
+					index = true;
+				}
+				break;
+			case 8:
+				if (x > 100 && x < 200 && y < 5 && y > -5 && z > 70 && z < 90
+						&& index == false) {
+
+					Toast.makeText(this, game, Toast.LENGTH_SHORT).show();
+
+					Intent intent8 = new Intent(ARcamera.this,
+							StageEightActivity.class);
+					// intent8.putExtra("state", stage_eight_state);
+					startActivityForResult(intent8, 8);
+					index = true;
+				}
+				break;
+			default:
+				break;
 			}
+
 		}
 	}
 
@@ -183,7 +230,11 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				Log.i("image", location2[0] + "~~" + location2[1]);
 				state = isInChangeImageZone(target, location2[0], location2[1]);
 				if (state == true) {
-					ARcamera.this.finish();
+
+					Intent returnIntent = new Intent();
+					returnIntent.putExtra("result", true);
+					setResult(RESULT_OK, returnIntent);
+					finish();
 				}
 			}
 			return true;
@@ -239,5 +290,74 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			mRegisteredSensor = false;
 		}
 		super.onPause();
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+
+				Intent returnIntent3 = new Intent();
+				returnIntent3.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent3);
+				finish();
+
+				// stageAvailability[2] = false;
+				// Toast.makeText(this, "All Stages Completed!",
+				// Toast.LENGTH_LONG)
+				// .show();
+				// Intent toResultIntent = new Intent();
+				// toResultIntent.setClass(GameProgressActivity.this,
+				// ResultActivity.class);
+				// startActivity(toResultIntent);
+				// GameProgressActivity.this.finish();
+
+				break;
+			case 4:
+				Intent returnIntent4 = new Intent();
+				returnIntent4.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent4);
+				finish();
+				break;
+			case 5:
+				Intent returnIntent5 = new Intent();
+				returnIntent5.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent5);
+				finish();
+				break;
+			case 6:
+				Intent returnIntent6 = new Intent();
+				returnIntent6.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent6);
+				finish();
+				break;
+			case 7:
+				// stage_eight_state = true;
+				// Intent intent = new Intent(GameProgressActivity.this,
+				// ARcamera.class);
+				// intent.putExtra("game", "8");
+				// intent.putExtra("state", stage_eight_state);
+				// startActivityForResult(intent, 8);
+
+				if (resultCode == RESULT_OK) {
+					Boolean stage_eight_state = data.getExtras().getBoolean(
+							"result");
+				}
+				break;
+			case 8:
+				break;
+			case 9:
+				break;
+			default:
+
+				break;
+			}
+		}
 	}
 }

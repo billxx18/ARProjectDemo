@@ -11,20 +11,34 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" 
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/stageOne" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please turn on the switch to restore energy" />
+
         <Button
+            android:id="@+id/onReturnResultBtnClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onReturnResultBtnClick"
             android:text="@string/returnResult" />
+
+        <Button
+            android:id="@+id/onTakeEnergyBtnClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onTakeEnergyBtnClick"
+            android:text="@string/takeEnergy"
+            android:visibility="gone" />
     </LinearLayout>
 
 </RelativeLayout>

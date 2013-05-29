@@ -185,7 +185,10 @@ public class StageSixActivity extends Activity {
 			}
 		}
 		feedbackText.setText("we have a winner");
-		StageSixActivity.this.finish();
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("result", true);
+		setResult(RESULT_OK, returnIntent);
+		finish();
 	}
 
 	public void fill_grid() {
@@ -428,7 +431,10 @@ public class StageSixActivity extends Activity {
 	}
 
 	public void finish(View view) {
-		StageSixActivity.this.finish();
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("result", true);
+		setResult(RESULT_OK, returnIntent);
+		finish();
 	}
 
 }

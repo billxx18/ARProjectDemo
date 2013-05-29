@@ -45,33 +45,39 @@ public class GameProgressActivity extends MapActivity implements
 	String result = "no event";
 	String url = "http://140.119.19.15/gpsfindevent.php";
 	private boolean[] stageAvailability = { true, false, false };
+	private boolean[] stageClear = { false, false, false, false, false, false,
+			false, false, false };
+	boolean stage_eight_state = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_progress);
 
-		map = (MapView) findViewById(R.id.mapView); // 載入google map物件
-		mapController = map.getController(); // 設定控制的map物件
-		LocationManager status = (LocationManager) (this
-				.getSystemService(Context.LOCATION_SERVICE));
-		if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)
-				|| status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-			// 如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
-			locationServiceInitial();
-		} else {
-			Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
-			startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-			// 開啟設定頁面
-		}
-		setupMap();
-		String tMsg = "";
-		try {
-			// 指定向GPS裝置註冊要求取得地理資訊
-			lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-		} catch (Exception e) {
-			tMsg = e.getMessage();
-		}
+		
+		
+		
+		 map = (MapView) findViewById(R.id.mapView); // 載入google map物件
+		 mapController = map.getController(); // 設定控制的map物件
+		 LocationManager status = (LocationManager) (this
+		 .getSystemService(Context.LOCATION_SERVICE));
+		 if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)
+		 || status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+		 // 如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
+		 locationServiceInitial();
+		 } else {
+		 Toast.makeText(this, "請開啟定位服務", Toast.LENGTH_LONG).show();
+		 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+		 // 開啟設定頁面
+		 }
+		 setupMap();
+		 String tMsg = "";
+		 try {
+		 // 指定向GPS裝置註冊要求取得地理資訊
+		 lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+		 } catch (Exception e) {
+		 tMsg = e.getMessage();
+		 }
 	}
 
 	public void onPassBtnClick(View v) {
@@ -205,18 +211,18 @@ public class GameProgressActivity extends MapActivity implements
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						StageTwoActivity.class);
+				intent.putExtra("game", "2");
 				startActivityForResult(intent, 2);
 			}
 			if (result.contains("eventC")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-
 				Intent intent = new Intent(GameProgressActivity.this,
-						StageThreeActivity.class);
+						ARcamera.class);
+				intent.putExtra("game", "3");
 				startActivityForResult(intent, 3);
 			}
 			if (result.contains("eventD")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "4");
@@ -224,6 +230,10 @@ public class GameProgressActivity extends MapActivity implements
 			}
 			if (result.contains("eventE")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(GameProgressActivity.this,
+						ARcamera.class);
+				intent.putExtra("game", "5");
+				startActivityForResult(intent, 5);
 
 			}
 			if (result.contains("eventF")) {
@@ -236,10 +246,19 @@ public class GameProgressActivity extends MapActivity implements
 			}
 			if (result.contains("eventG")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(GameProgressActivity.this,
+						ARcamera.class);
+				intent.putExtra("game", "7");
+				startActivityForResult(intent, 7);
 
 			}
 			if (result.contains("eventH")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(GameProgressActivity.this,
+						ARcamera.class);
+				intent.putExtra("game", "8");
+				intent.putExtra("state", stage_eight_state);
+				startActivityForResult(intent, 8);
 
 			}
 			if (result.contains("eventI")) {
@@ -257,34 +276,6 @@ public class GameProgressActivity extends MapActivity implements
 		}
 		// Intent intent =new Intent(this,event1.class);
 		// startActivity(intent);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
-		switch (requestCode) {
-		case 1:
-			stageAvailability[0] = false;
-			stageAvailability[1] = true;
-			break;
-		case 2:
-			stageAvailability[1] = false;
-			stageAvailability[2] = true;
-			break;
-		case 3:
-			stageAvailability[2] = false;
-			Toast.makeText(this, "All Stages Completed!", Toast.LENGTH_LONG)
-					.show();
-			Intent toResultIntent = new Intent();
-			toResultIntent.setClass(GameProgressActivity.this,
-					ResultActivity.class);
-			startActivity(toResultIntent);
-			GameProgressActivity.this.finish();
-			break;
-		default:
-			break;
-		}
 	}
 
 	public String sendPostDataToInternet(String strText) {
@@ -323,7 +314,7 @@ public class GameProgressActivity extends MapActivity implements
 		super.onResume();
 		// mylayer.enableMyLocation();
 		// 指定向GPS裝置註冊要求取得地理資訊
-		lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+		 lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
 	}
 
@@ -351,8 +342,74 @@ public class GameProgressActivity extends MapActivity implements
 	protected void onPause() {
 		super.onPause();
 		// if (getService) {
-		lms.removeUpdates(this); // 離開頁面時停止更新
+		 lms.removeUpdates(this); // 離開頁面時停止更新
 		// mylayer.disableMyLocation();
 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case 1:
+				stageClear[0] = data.getExtras().getBoolean("result");
+				break;
+			case 2:
+				stageClear[1] = data.getExtras().getBoolean("result");
+				break;
+			case 3:
+				
+				stageClear[2] = data.getExtras().getBoolean("result");
+				if(stageClear[2])
+				{
+					Toast.makeText(this, "pass", Toast.LENGTH_LONG).show();
+				}
+				
+				// stageAvailability[2] = false;
+				// Toast.makeText(this, "All Stages Completed!",
+				// Toast.LENGTH_LONG)
+				// .show();
+				// Intent toResultIntent = new Intent();
+				// toResultIntent.setClass(GameProgressActivity.this,
+				// ResultActivity.class);
+				// startActivity(toResultIntent);
+				// GameProgressActivity.this.finish();
+			
+				break;
+			case 4:
+				stageClear[3] = data.getExtras().getBoolean("result");
+				break;
+			case 5:
+				stageClear[4] = data.getExtras().getBoolean("result");
+				break;
+			case 6:
+				stageClear[5] = data.getExtras().getBoolean("result");
+				break;
+			case 7:
+				stageClear[6] = data.getExtras().getBoolean("result");
+				stage_eight_state = true;
+				Intent intent = new Intent(GameProgressActivity.this,
+						ARcamera.class);
+				intent.putExtra("game", "8");
+				intent.putExtra("state", stage_eight_state);
+				startActivityForResult(intent, 8);
+
+				if (resultCode == RESULT_OK) {
+					Boolean stage_eight_state = data.getExtras().getBoolean(
+							"result");
+				}
+				break;
+			case 8:
+				stageClear[7] = data.getExtras().getBoolean("result");
+				break;
+			case 9:
+				stageClear[8] = data.getExtras().getBoolean("result");
+				break;
+			default:
+				break;
+			}
+		}
 	}
 }

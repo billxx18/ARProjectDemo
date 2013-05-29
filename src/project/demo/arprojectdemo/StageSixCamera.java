@@ -22,21 +22,6 @@ public class StageSixCamera extends Activity {
 
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if (resultCode == RESULT_OK) {
-
-			bmp = BitmapFactory.decodeFile(outputFileUri.getPath()); // 利用BitmapFactory去取得剛剛拍照的圖像
-			Intent intent2 = new Intent(StageSixCamera.this, StageSixActivity.class);
-			intent2.putExtra("bmp", bmp);
-			startActivity(intent2);
-			StageSixCamera.this.finish();
-		}
-	}
-
 	public void go(View view) {
 		Intent intent = new Intent(
 				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);// 利用intent去開啟android本身的照相介面
@@ -45,9 +30,7 @@ public class StageSixCamera extends Activity {
 
 		File tmpFile = new File(
 
-		Environment.getExternalStorageDirectory(),
-
-		"image.jpg");
+		Environment.getExternalStorageDirectory(), "image.jpg");
 
 		outputFileUri = Uri.fromFile(tmpFile);
 
@@ -65,4 +48,29 @@ public class StageSixCamera extends Activity {
 		startActivityForResult(intent, 0);
 
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case 0:
+				bmp = BitmapFactory.decodeFile(outputFileUri.getPath()); // 利用BitmapFactory去取得剛剛拍照的圖像
+				Intent intent = new Intent(StageSixCamera.this,
+						StageSixActivity.class);
+				intent.putExtra("bmp", bmp);
+				startActivityForResult(intent, 1);
+				break;
+			case 1:
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent);
+				finish();
+				break;
+			}
+		}
+	}
+
 }
