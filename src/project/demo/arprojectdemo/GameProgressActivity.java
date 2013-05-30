@@ -2,6 +2,8 @@ package project.demo.arprojectdemo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.http.HttpResponse;
@@ -33,7 +35,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,15 +54,23 @@ public class GameProgressActivity extends MapActivity implements
 	private boolean[] stageClear = { false, false, false, false, false, false,
 			false, false, false };
 	boolean stage_eight_state = false;
+	LayoutInflater controlInflater = null;
+	long INTERVAL = 1000;
+	final static long TIMEOUT = 0;
+	long elapsed = 10000;
+	Timer timer, timer2;
+	TimerTask task;
+	int random, lastTime, emergeInterval;
+	TextView time_text;
+	Boolean time_state;
+	View viewControl;
+	ddsGameProgressTask gameProgressTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_progress);
 
-		
-		
-		
 		 map = (MapView) findViewById(R.id.mapView); // 載入google map物件
 		 mapController = map.getController(); // 設定控制的map物件
 		 LocationManager status = (LocationManager) (this
@@ -198,9 +212,6 @@ public class GameProgressActivity extends MapActivity implements
 
 			if (result.contains("eventA")) {
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-
-				// Intent intent = new Intent(GameProgressActivity.this,
-				// StageOneActivity.class);
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "1");
@@ -256,9 +267,21 @@ public class GameProgressActivity extends MapActivity implements
 				Toast.makeText(this, result, Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
-				intent.putExtra("game", "8");
-				intent.putExtra("state", stage_eight_state);
-				startActivityForResult(intent, 8);
+
+				if (stageClear[6] == true) {
+
+					if ((gameProgressTask != null)
+							&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
+						gameProgressTask.cancel(true);
+					}
+					removeView();
+					intent.putExtra("game", "88");
+					startActivityForResult(intent, 88);
+
+				} else {
+					intent.putExtra("game", "8");
+					startActivityForResult(intent, 8);
+				}
 
 			}
 			if (result.contains("eventI")) {
@@ -271,11 +294,8 @@ public class GameProgressActivity extends MapActivity implements
 			}
 		} else {
 			Toast.makeText(this, "無法定位座標", Toast.LENGTH_LONG).show();
-			// Intent intent =new Intent(this,event1.class);
-			// startActivity(intent);
+
 		}
-		// Intent intent =new Intent(this,event1.class);
-		// startActivity(intent);
 	}
 
 	public String sendPostDataToInternet(String strText) {
@@ -347,6 +367,94 @@ public class GameProgressActivity extends MapActivity implements
 
 	}
 
+	private class ddsGameProgressTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			while (elapsed > TIMEOUT) {
+				if (isCancelled()) {
+					return (null);
+				}
+				// elapsed = 10000;
+				// INTERVAL = 1000;
+
+				task = new TimerTask() {
+
+					@Override
+					public void run() {
+
+						elapsed = elapsed - INTERVAL;
+						if (elapsed <= TIMEOUT) {
+							this.cancel();
+							displayText("Time Out");
+							if ((gameProgressTask != null)
+									&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
+								gameProgressTask.cancel(true);
+							}
+							removeView();
+							stageClear[6] = false;
+						
+							return;
+						}
+						// if(some other conditions)
+						// this.cancel();
+						displayText("seconds elapsed: " + elapsed / 1000);
+					}
+				};
+				timer = new Timer();
+				timer.scheduleAtFixedRate(task, INTERVAL, INTERVAL);
+
+				try {
+					lastTime = 10000;
+					Thread.sleep(lastTime);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			removeView();
+			stageClear[6] = false;
+
+		}
+	}
+
+	protected void onDestroy() {
+		if ((gameProgressTask != null)
+				&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
+			gameProgressTask.cancel(true);
+		}
+		super.onDestroy();
+	}
+
+	private void displayText(final String text2) {
+		this.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				time_text = (TextView) findViewById(R.id.text);
+				time_text.setText(text2);
+
+			}
+		});
+	}
+
+	public void removeView() {
+		this.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				ViewGroup rootView = (ViewGroup) findViewById(android.R.id.content);
+				for (int i = 0; i < rootView.getChildCount(); i++) {
+					if (rootView.getChildAt(i) == viewControl) {
+						rootView.removeView(viewControl);
+					}
+				}
+			}
+		});
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
@@ -360,13 +468,12 @@ public class GameProgressActivity extends MapActivity implements
 				stageClear[1] = data.getExtras().getBoolean("result");
 				break;
 			case 3:
-				
+
 				stageClear[2] = data.getExtras().getBoolean("result");
-				if(stageClear[2])
-				{
-					Toast.makeText(this, "pass", Toast.LENGTH_LONG).show();
+				if (stageClear[2]) {
+			
 				}
-				
+
 				// stageAvailability[2] = false;
 				// Toast.makeText(this, "All Stages Completed!",
 				// Toast.LENGTH_LONG)
@@ -376,7 +483,7 @@ public class GameProgressActivity extends MapActivity implements
 				// ResultActivity.class);
 				// startActivity(toResultIntent);
 				// GameProgressActivity.this.finish();
-			
+
 				break;
 			case 4:
 				stageClear[3] = data.getExtras().getBoolean("result");
@@ -389,20 +496,23 @@ public class GameProgressActivity extends MapActivity implements
 				break;
 			case 7:
 				stageClear[6] = data.getExtras().getBoolean("result");
-				stage_eight_state = true;
-				Intent intent = new Intent(GameProgressActivity.this,
-						ARcamera.class);
-				intent.putExtra("game", "8");
-				intent.putExtra("state", stage_eight_state);
-				startActivityForResult(intent, 8);
-
-				if (resultCode == RESULT_OK) {
-					Boolean stage_eight_state = data.getExtras().getBoolean(
-							"result");
-				}
+				controlInflater = LayoutInflater.from(getBaseContext());
+				viewControl = controlInflater.inflate(R.layout.timer, null);
+				LayoutParams layoutParamsControl = new LayoutParams(
+						LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+				this.addContentView(viewControl, layoutParamsControl);
+				gameProgressTask = new ddsGameProgressTask();
+				gameProgressTask.execute((Void) null);
 				break;
 			case 8:
+				// stageClear[7] = data.getExtras().getBoolean("result");
+
+				break;
+			case 88:
 				stageClear[7] = data.getExtras().getBoolean("result");
+				if (stageClear[7]) {
+					Toast.makeText(this, "Pass", Toast.LENGTH_LONG).show();
+				}
 				break;
 			case 9:
 				stageClear[8] = data.getExtras().getBoolean("result");
@@ -411,5 +521,43 @@ public class GameProgressActivity extends MapActivity implements
 				break;
 			}
 		}
+		if (resultCode == RESULT_CANCELED) {
+			switch (requestCode) {
+			case 88:
+				Toast.makeText(this, "Fail", Toast.LENGTH_LONG).show();
+				break;
+			}
+
+		}
+	}
+
+	public void event8(View view) {
+
+		Intent intent = new Intent(GameProgressActivity.this,
+				ARcamera.class);
+
+		if (stageClear[6] == true) {
+
+			if ((gameProgressTask != null)
+					&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
+				gameProgressTask.cancel(true);
+			}
+			removeView();
+			intent.putExtra("game", "88");
+			startActivityForResult(intent, 88);
+
+		} else {
+			intent.putExtra("game", "8");
+			startActivityForResult(intent, 8);
+		}
+
+	}
+
+	public void event7(View view) {
+		Intent intent = new Intent(GameProgressActivity.this,
+				ARcamera.class);
+		intent.putExtra("game", "7");
+		startActivityForResult(intent, 7);
+
 	}
 }

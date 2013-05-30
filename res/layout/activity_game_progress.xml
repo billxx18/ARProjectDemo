@@ -49,6 +49,18 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="" />
+        <Button 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="event8"
+            android:text="event8"
+            />
+         <Button 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="event7"
+            android:text="event7"
+            />
     </LinearLayout>
 
 </RelativeLayout>

@@ -2,6 +2,8 @@ package project.demo.arprojectdemo;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
@@ -10,6 +12,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -22,6 +25,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,14 +41,20 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 	private boolean mRegisteredSensor;
 	View viewControl;
 	boolean state, index = false;
-
 	private Rect mChangeImageBackgroundRect = null;
+	long INTERVAL = 1000;
+	final static long TIMEOUT = 0;
+	long elapsed = 10000;
+	Timer timer, timer2;
+	TimerTask task;
+	int random, lastTime, emergeInterval;
+	TextView time_text;
+	Boolean time_state;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_arcamera);
-		Toast.makeText(this, "GO-2", Toast.LENGTH_LONG).show();
 
 		getWindow().setFormat(PixelFormat.UNKNOWN);
 		surfaceView = (SurfaceView) findViewById(R.id.camerapreview);
@@ -102,6 +112,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			TextView tv1 = (TextView) findViewById(R.id.x);
 			TextView tv2 = (TextView) findViewById(R.id.y);
 			TextView tv3 = (TextView) findViewById(R.id.z);
+
 			String x1 = Float.toString(x);
 			String y1 = Float.toString(y);
 			String z1 = Float.toString(z);
@@ -112,6 +123,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			// Boolean stage_eight_state = getIntent().getExtras().getBoolean(
 			// "state");
 			int games = Integer.parseInt(game);
+			// Toast.makeText(this, game, Toast.LENGTH_LONG).show();
 			switch (games) {
 			case 1:
 				if (x > 200 && x < 250 && y < 20 && y > -20 && z > 20 && z < 30
@@ -169,23 +181,32 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 7:
-				if (x > 100 && x < 200 && y < 5 && y > -5 && z > 70 && z < 90
+				if (x > 25 && x < 75 && y < 10 && y > -10 && z > 15 && z < 45
 						&& index == false) {
+
 					Intent intent7 = new Intent(ARcamera.this,
 							StageSevenActivity.class);
 					startActivityForResult(intent7, 7);
 					index = true;
 				}
 				break;
+
 			case 8:
 				if (x > 100 && x < 200 && y < 5 && y > -5 && z > 70 && z < 90
 						&& index == false) {
-
-					Toast.makeText(this, game, Toast.LENGTH_SHORT).show();
-
 					Intent intent8 = new Intent(ARcamera.this,
 							StageEightActivity.class);
-					// intent8.putExtra("state", stage_eight_state);
+					intent8.putExtra("state", false);
+					startActivityForResult(intent8, 8);
+					index = true;
+				}
+				break;
+			case 88:
+				if (x > 100 && x < 200 && y < 5 && y > -5 && z > 70 && z < 90
+						&& index == false) {
+					Intent intent8 = new Intent(ARcamera.this,
+							StageEightActivity.class);
+					intent8.putExtra("state", true);
 					startActivityForResult(intent8, 8);
 					index = true;
 				}
@@ -280,7 +301,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 		}
 	}
 
-	// @Override
+	@Override
 	protected void onPause() {
 
 		if (mRegisteredSensor) {
@@ -290,6 +311,17 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			mRegisteredSensor = false;
 		}
 		super.onPause();
+	}
+
+	@Override
+	protected void onDestroy() {
+
+		if (camera != null) {
+			camera.stopPreview();
+			camera.release();
+			camera = null;
+		}
+		super.onDestroy();
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -344,13 +376,26 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				// intent.putExtra("game", "8");
 				// intent.putExtra("state", stage_eight_state);
 				// startActivityForResult(intent, 8);
-
-				if (resultCode == RESULT_OK) {
-					Boolean stage_eight_state = data.getExtras().getBoolean(
-							"result");
-				}
+				Intent returnIntent7 = new Intent();
+				returnIntent7.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent7);
+				finish();
+				// if (resultCode == RESULT_OK) {
+				// Boolean stage_eight_state = data.getExtras().getBoolean(
+				// "result");
+				// }
 				break;
 			case 8:
+				Intent returnIntent8 = new Intent();
+				returnIntent8.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent8);
+				finish();
+				break;
+			case 88:
+				Intent returnIntent88 = new Intent();
+				returnIntent88.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent88);
+				finish();
 				break;
 			case 9:
 				break;

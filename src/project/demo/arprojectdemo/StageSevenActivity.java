@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.Menu;
@@ -209,7 +210,7 @@ public class StageSevenActivity extends Activity {
 				timer = new Timer();
 				// while (timeup == false) {
 				timer.scheduleAtFixedRate(task, INTERVAL, INTERVAL);
-				random = ((int) (Math.random() * 16) + 1);
+
 
 				try {
 					lastTime = 10000;
@@ -294,7 +295,11 @@ public class StageSevenActivity extends Activity {
 			public void run() {
 				timer2.cancel();
 				displayText("Please Move To The Next Stage");
-				StageSevenActivity.this.finish();
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent);
+				finish();
+				
 				// img.setVisibility(View.VISIBLE);
 			}
 		});
