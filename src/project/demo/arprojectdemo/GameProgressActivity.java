@@ -393,7 +393,7 @@ public class GameProgressActivity extends MapActivity implements
 							}
 							removeView();
 							stageClear[6] = false;
-						
+
 							return;
 						}
 						// if(some other conditions)
@@ -470,10 +470,6 @@ public class GameProgressActivity extends MapActivity implements
 			case 3:
 
 				stageClear[2] = data.getExtras().getBoolean("result");
-				if (stageClear[2]) {
-			
-				}
-
 				// stageAvailability[2] = false;
 				// Toast.makeText(this, "All Stages Completed!",
 				// Toast.LENGTH_LONG)
@@ -531,33 +527,19 @@ public class GameProgressActivity extends MapActivity implements
 		}
 	}
 
+	public void event7(View view) {
+		Intent intent = new Intent(GameProgressActivity.this,
+				ARcamera.class);
+		intent.putExtra("game", "3");
+		startActivityForResult(intent, 3);
+	}
+
 	public void event8(View view) {
 
 		Intent intent = new Intent(GameProgressActivity.this,
 				ARcamera.class);
-
-		if (stageClear[6] == true) {
-
-			if ((gameProgressTask != null)
-					&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
-				gameProgressTask.cancel(true);
-			}
-			removeView();
-			intent.putExtra("game", "88");
-			startActivityForResult(intent, 88);
-
-		} else {
-			intent.putExtra("game", "8");
-			startActivityForResult(intent, 8);
-		}
-
+		intent.putExtra("game", "5");
+		startActivityForResult(intent, 5);
 	}
 
-	public void event7(View view) {
-		Intent intent = new Intent(GameProgressActivity.this,
-				ARcamera.class);
-		intent.putExtra("game", "7");
-		startActivityForResult(intent, 7);
-
-	}
 }
