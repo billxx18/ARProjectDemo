@@ -29,21 +29,24 @@ public class StageSevenActivity extends Activity {
 	private Rect mChangeImageBackgroundRect = null;
 	int score = 5, random, lastTime, emergeInterval;
 	ddsGameProgressTask gameProgressTask;
-	private MyCount mc;
+//	private MyCount mc;
 	long INTERVAL = 1000;
 	final static long TIMEOUT = 0;
 	long elapsed = 10000;
 	Timer timer, timer2;
 	TimerTask task;
-
+	int[] location = new int[2];
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stage_seven);
 		dog = (ImageView) findViewById(R.id.dogframe);
 		img = (ImageView) findViewById(R.id.img);
+		img.getLocationInWindow(location);
 		start = (Button) findViewById(R.id.start);
 		text = (TextView) findViewById(R.id.text);
+		
 		gameProgressTask = new ddsGameProgressTask();
 		gameProgressTask.execute((Void) null);
 		img.setOnTouchListener(imgListener);
@@ -134,13 +137,13 @@ public class StageSevenActivity extends Activity {
 							elapsed = elapsed - INTERVAL;
 							if (elapsed <= TIMEOUT) {
 								this.cancel();
-								displayText("Dog Emerge");
+								displayText("狗狗出現了");
 								change();
 								return;
 							}
 							// if(some other conditions)
 							// this.cancel();
-							displayText("seconds elapsed: " + elapsed / 1000);
+							displayText("剩餘時間： " + elapsed / 1000);
 						}
 					};
 					timer2 = new Timer();
@@ -189,8 +192,7 @@ public class StageSevenActivity extends Activity {
 				}
 				// mc = new MyCount(5000, 1000);
 				// mc.start();
-				elapsed = 10000;
-				INTERVAL = 1000;
+				
 				task = new TimerTask() {
 
 					@Override
@@ -199,38 +201,26 @@ public class StageSevenActivity extends Activity {
 						elapsed = elapsed - INTERVAL;
 						if (elapsed <= TIMEOUT) {
 							this.cancel();
-							displayText("ATTACK");
+							displayText("攻擊!!!");
 							return;
 						}
 						// if(some other conditions)
 						// this.cancel();
-						displayText("seconds elapsed: " + elapsed / 1000);
+						displayText("剩餘時間： " + elapsed / 1000);
 					}
 				};
 				timer = new Timer();
 				// while (timeup == false) {
 				timer.scheduleAtFixedRate(task, INTERVAL, INTERVAL);
-
+				elapsed = 10000;
+				INTERVAL = 1000;
 
 				try {
-					lastTime = 10000;
+					lastTime = 11000;
 					Thread.sleep(lastTime);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-//
-//				try {
-//					lastTime = 500;
-//					Thread.sleep(lastTime);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				try {
-//					emergeInterval = 600;
-//					Thread.sleep(emergeInterval);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
 			}
 			return null;
 		}
@@ -247,24 +237,24 @@ public class StageSevenActivity extends Activity {
 		 }
 		 super.onDestroy();
 		 }
-	class MyCount extends CountDownTimer {
-		public MyCount(long millisInFuture, long countDownInterval) {
-			super(millisInFuture, countDownInterval);
-		}
-
-		@Override
-		public void onFinish() {
-			text.setText("finish");
-		}
-
-		@Override
-		public void onTick(long millisUntilFinished) {
-			text.setText("请等待10秒(" + millisUntilFinished / 1000 + ")...");
-			// Toast.makeText(MainActivity.this, millisUntilFinished / 1000 +
-			// "",
-			// Toast.LENGTH_LONG).show();// toast有显示时间延迟
-		}
-	}
+//	class MyCount extends CountDownTimer {
+//		public MyCount(long millisInFuture, long countDownInterval) {
+//			super(millisInFuture, countDownInterval);
+//		}
+//
+//		@Override
+//		public void onFinish() {
+//			text.setText("finish");
+//		}
+//
+//		@Override
+//		public void onTick(long millisUntilFinished) {
+//			text.setText("请等待10秒(" + millisUntilFinished / 1000 + ")...");
+//			// Toast.makeText(MainActivity.this, millisUntilFinished / 1000 +
+//			// "",
+//			// Toast.LENGTH_LONG).show();// toast有显示时间延迟
+//		}
+//	}
 
 	private void displayText(final String text2) {
 		this.runOnUiThread(new Runnable() {
@@ -282,6 +272,13 @@ public class StageSevenActivity extends Activity {
 				dog.setVisibility(View.VISIBLE);
 				start.setVisibility(View.GONE);
 				img.setVisibility(View.VISIBLE);
+				LayoutParams params2 = new LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				params2.setMargins(location[0], location[1], 0, 0);
+				// OR
+				// params.topMargin= 100;
+
+				img.setLayoutParams(params2);
 				gameProgressTask = new ddsGameProgressTask();
 				gameProgressTask.execute((Void) null);
 				// img.setVisibility(View.VISIBLE);
@@ -294,7 +291,8 @@ public class StageSevenActivity extends Activity {
 			@Override
 			public void run() {
 				timer2.cancel();
-				displayText("Please Move To The Next Stage");
+				displayText("開始充能，請盡快到達目的地");
+				
 				Intent returnIntent = new Intent();
 				returnIntent.putExtra("result", true);
 				setResult(RESULT_OK, returnIntent);

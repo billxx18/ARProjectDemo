@@ -123,11 +123,11 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			// Boolean stage_eight_state = getIntent().getExtras().getBoolean(
 			// "state");
 			int games = Integer.parseInt(game);
-			// Toast.makeText(this, game, Toast.LENGTH_LONG).show();
+			// Toast.makeText(this, game, Toast.LENGTH_SHORT).show();
 			switch (games) {
 			case 1:
-				if (x > 200 && x < 250 && y < 20 && y > -20 && z > 20 && z < 30
-						&& index == false) {
+				if (x > 200 && x < 250 && (y < -170 || y > 170) && z > 10 && z < 50 )
+				{
 					//
 					controlInflater = LayoutInflater.from(getBaseContext());
 					viewControl = controlInflater.inflate(
@@ -143,7 +143,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 3:
-				if (x > 50 && x < 150 && y < 5 && y > -5 && z > 70 && z < 90
+				if (x > 75 && x < 125 && y < 5 && y > -5 && z > 60 && z < 90
 						&& index == false) {
 					Intent intent3 = new Intent(ARcamera.this,
 							StageThreeActivity.class);
@@ -153,7 +153,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 4:
-				if (x > 25 && x < 75 && y < 5 && y > -5 && z > 70 && z < 90
+				if (x > 75 && x < 125 && y < 5 && y > -5 && z > 70 && z < 90
 						&& index == false) {
 					Intent intent4 = new Intent(ARcamera.this,
 							StageFourActivity.class);
@@ -163,7 +163,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 5:
-				if (x > 50 && x < 150 && y < 5 && y > -5 && z > 70 && z < 90
+				if (x > 75 && x < 125 && y < 5 && y > -5 && z > 60 && z < 80
 						&& index == false) {
 					Intent intent5 = new Intent(ARcamera.this,
 							StageFiveActivity.class);
@@ -172,7 +172,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 6:
-				if (x > 300 && x < 360 && y < 5 && y > -5 && z > 70 && z < 90
+				if (x > 250 && x < 310 && y < 5 && y > -5 && z > 65 && z < 85
 						&& index == false) {
 					Intent intent6 = new Intent(ARcamera.this,
 							StageSixCamera.class);
@@ -192,7 +192,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				break;
 
 			case 8:
-				if (x > 100 && x < 200 && y < 5 && y > -5 && z > 70 && z < 90
+				if (x > 40 && x < 100 && y < 5 && y > -5 && z > 65 && z < 85
 						&& index == false) {
 					Intent intent8 = new Intent(ARcamera.this,
 							StageEightActivity.class);
@@ -202,7 +202,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 88:
-				if (x > 100 && x < 200 && y < 5 && y > -5 && z > 70 && z < 90
+				if (x > 40 && x < 100 && y < 5 && y > -5 && z > 65 && z < 85
 						&& index == false) {
 					Intent intent8 = new Intent(ARcamera.this,
 							StageEightActivity.class);
@@ -342,7 +342,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 
 				// stageAvailability[2] = false;
 				// Toast.makeText(this, "All Stages Completed!",
-				// Toast.LENGTH_LONG)
+				// Toast.LENGTH_SHORT)
 				// .show();
 				// Intent toResultIntent = new Intent();
 				// toResultIntent.setClass(GameProgressActivity.this,
@@ -404,5 +404,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				break;
 			}
 		}
+		index=false
+				;
 	}
 }

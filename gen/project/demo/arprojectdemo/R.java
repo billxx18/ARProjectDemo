@@ -81,10 +81,14 @@ public final class R {
         public static final int ic_launcher=0x7f020039;
         public static final int koala=0x7f02003a;
         public static final int logo=0x7f02003b;
-        public static final int no_ds=0x7f02003c;
-        public static final int sidemenu_btn_press=0x7f02003d;
-        public static final int white=0x7f02003e;
-        public static final int yes_ds=0x7f02003f;
+        public static final int nccu_logo_png=0x7f02003c;
+        public static final int no_ds=0x7f02003d;
+        public static final int pause=0x7f02003e;
+        public static final int sidemenu_btn_press=0x7f02003f;
+        public static final int skeleton_back=0x7f020040;
+        public static final int skeleton_button=0x7f020041;
+        public static final int white=0x7f020042;
+        public static final int yes_ds=0x7f020043;
     }
     public static final class id {
         public static final int Boss=0x7f080032;
@@ -121,7 +125,7 @@ public final class R {
         public static final int MoveCounter=0x7f080049;
         public static final int MoveText=0x7f080047;
         public static final int Score=0x7f080033;
-        public static final int action_settings=0x7f08005b;
+        public static final int action_settings=0x7f08005d;
         public static final int camerapreview=0x7f080000;
         public static final int ddsGameButton1_1=0x7f080051;
         public static final int ddsGameButton1_2=0x7f080052;
@@ -168,14 +172,16 @@ public final class R {
         public static final int menu_settings=0x7f080010;
         public static final int onReturnResultBtnClick=0x7f080018;
         public static final int onTakeEnergyBtnClick=0x7f080019;
+        public static final int pause=0x7f08005b;
         public static final int progressBar=0x7f080016;
         public static final int result=0x7f080007;
+        public static final int skull=0x7f08005a;
         public static final int source_image=0x7f08004b;
         public static final int start=0x7f080036;
         public static final int target=0x7f080034;
         public static final int text=0x7f080039;
         public static final int text_content=0x7f08001c;
-        public static final int timer=0x7f08005a;
+        public static final int timer=0x7f08005c;
         public static final int x=0x7f080001;
         public static final int y=0x7f080002;
         public static final int z=0x7f080003;

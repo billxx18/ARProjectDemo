@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/dogframe"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/dogwolf" >
             </ImageView>
         </FrameLayout>
@@ -44,7 +44,7 @@
                     android:id="@+id/text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="A Big Dog" >
+                    android:text="那裏有一隻大狗ㄟ" >
                 </TextView>
             </LinearLayout>
         </FrameLayout>
