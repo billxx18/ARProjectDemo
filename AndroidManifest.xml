@@ -127,6 +127,24 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name="project.demo.arprojectdemo.StageTenActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_ten"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageElevenActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_eleven"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.StageTwelveActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_stage_twelve"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name="project.demo.arprojectdemo.ARcamera"
             android:configChanges="locale"
             android:label="@string/title_activity_arcamera"

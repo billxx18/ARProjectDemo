@@ -52,7 +52,7 @@ public class GameProgressActivity extends MapActivity implements
 	String url = "http://140.119.19.15/gpsfindevent.php";
 	private boolean[] stageAvailability = { true, false, false };
 	private boolean[] stageClear = { false, false, false, false, false, false,
-			false, false, false };
+			false, false, false, false ,false ,false };
 	boolean stage_eight_state = false;
 	LayoutInflater controlInflater = null;
 	long INTERVAL = 1000;
@@ -286,10 +286,34 @@ public class GameProgressActivity extends MapActivity implements
 			}
 			if (result.contains("eventI")) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(GameProgressActivity.this,
+						StageNineActivity.class);
+				intent.putExtra("game", "9");
+				startActivityForResult(intent, 9);
 
 			}
-			if (result.contains("eventz")) {
+			if (result.contains("eventJ")) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(GameProgressActivity.this,
+						ARcamera.class);
+				intent.putExtra("game", "10");
+				startActivityForResult(intent, 10);
+
+			}
+			if (result.contains("eventK")) {
+				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(GameProgressActivity.this,
+						ARcamera.class);
+				intent.putExtra("game", "11");
+				startActivityForResult(intent, 11);
+
+			}
+			if (result.contains("eventL")) {
+				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(GameProgressActivity.this,
+						ARcamera.class);
+				intent.putExtra("game", "12");
+				startActivityForResult(intent, 12);
 
 			}
 		} else {
@@ -519,6 +543,15 @@ public class GameProgressActivity extends MapActivity implements
 			case 9:
 				stageClear[8] = data.getExtras().getBoolean("result");
 				break;
+			case 10:
+				stageClear[9] = data.getExtras().getBoolean("result");
+				break;
+			case 11:
+				stageClear[10] = data.getExtras().getBoolean("result");
+				break;
+			case 12:
+				stageClear[11] = data.getExtras().getBoolean("result");
+				break;
 			default:
 				break;
 			}
@@ -534,30 +567,20 @@ public class GameProgressActivity extends MapActivity implements
 	}
 
 	public void event7(View view) {
-		Intent intent = new Intent(GameProgressActivity.this, ARcamera.class);
-		intent.putExtra("game", "7");
-		startActivityForResult(intent, 7);
+		Intent intent = new Intent(GameProgressActivity.this,
+				ARcamera.class);
+		intent.putExtra("game", "11");
+		startActivityForResult(intent, 11);
+
 	}
 
 	public void event8(View view) {
 
-		Intent intent = new Intent(GameProgressActivity.this, ARcamera.class);
+		Intent intent = new Intent(GameProgressActivity.this,
+				ARcamera.class);
+		intent.putExtra("game", "10");
+		startActivityForResult(intent, 10);
 
-		if (stageClear[6] == true) {
-
-			if ((gameProgressTask != null)
-					&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
-				gameProgressTask.cancel(true);
-			}
-			removeView();
-			intent.putExtra("game", "88");
-
-			startActivityForResult(intent, 88);
-
-		} else {
-			intent.putExtra("game", "8");
-			startActivityForResult(intent, 8);
-		}
 
 	}
 

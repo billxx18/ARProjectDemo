@@ -63,6 +63,9 @@
     <string name="title_activity_stage_seven">StageSevenActivity</string>
     <string name="title_activity_stage_eight">StageEightActivity</string>
     <string name="title_activity_stage_nine">StageNineActivity</string>
+    <string name="title_activity_stage_ten">StageTenActivity</string>
+    <string name="title_activity_stage_eleven">StageElevenActivity</string>
+    <string name="title_activity_stage_twelve">StageTwelveActivity</string>
     <string name="title_activity_stage_six_camera">StageSixCamera</string>
     <string name="title_activity_arcamera">ARcamera</string>
     <string name="title_activity_result">ResultActivity</string>

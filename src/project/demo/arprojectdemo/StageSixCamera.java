@@ -28,11 +28,11 @@ public class StageSixCamera extends Activity {
 
 		// 設定圖片的儲存位置，以及檔名
 
-		File tmpFile = new File(
-
-		Environment.getExternalStorageDirectory(), "image.jpg");
-
-		outputFileUri = Uri.fromFile(tmpFile);
+		// File tmpFile = new File(
+		//
+		// Environment.getExternalStorageDirectory(), "image.jpg");
+		//
+		// outputFileUri = Uri.fromFile(tmpFile);
 
 		/*
 		 * 
@@ -43,7 +43,7 @@ public class StageSixCamera extends Activity {
 		 * 稍後再說明onActivityResult
 		 */
 
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+		// intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
 		startActivityForResult(intent, 0);
 
@@ -57,7 +57,9 @@ public class StageSixCamera extends Activity {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case 0:
-				bmp = BitmapFactory.decodeFile(outputFileUri.getPath()); // 利用BitmapFactory去取得剛剛拍照的圖像
+				// bmp = BitmapFactory.decodeFile(outputFileUri.getPath()); //
+				// 利用BitmapFactory去取得剛剛拍照的圖像
+				bmp = (Bitmap) data.getExtras().get("data");
 				Intent intent = new Intent(StageSixCamera.this,
 						StageSixActivity.class);
 				intent.putExtra("bmp", bmp);

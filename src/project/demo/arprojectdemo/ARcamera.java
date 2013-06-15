@@ -126,8 +126,8 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			// Toast.makeText(this, game, Toast.LENGTH_SHORT).show();
 			switch (games) {
 			case 1:
-				if (x > 200 && x < 250 && (y < -170 || y > 170) && z > 10 && z < 50 )
-				{
+				if (x > 24 && x < 84 && (y < -170 || y > 170) && z > 10
+						&& z < 70) {
 					//
 					controlInflater = LayoutInflater.from(getBaseContext());
 					viewControl = controlInflater.inflate(
@@ -143,7 +143,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 3:
-				if (x > 75 && x < 125 && y < 5 && y > -5 && z > 60 && z < 90
+				if (x > 75 && x < 125 && (y < 5 || y > 170) && z > 60 && z < 90
 						&& index == false) {
 					Intent intent3 = new Intent(ARcamera.this,
 							StageThreeActivity.class);
@@ -153,7 +153,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 4:
-				if (x > 75 && x < 125 && y < 5 && y > -5 && z > 70 && z < 90
+				if (x > 75 && x < 125 && (y < 5 || y > 170) && z > 70 && z < 90
 						&& index == false) {
 					Intent intent4 = new Intent(ARcamera.this,
 							StageFourActivity.class);
@@ -163,7 +163,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 5:
-				if (x > 75 && x < 125 && y < 5 && y > -5 && z > 60 && z < 80
+				if (x > 61 && x < 126 && (y < 5 || y > 170) && z > 43 && z < 103
 						&& index == false) {
 					Intent intent5 = new Intent(ARcamera.this,
 							StageFiveActivity.class);
@@ -172,7 +172,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 6:
-				if (x > 250 && x < 310 && y < 5 && y > -5 && z > 65 && z < 85
+				if (x > 238 && x < 298 && (y < 5 || y > 170) && z > 46 && z < 106
 						&& index == false) {
 					Intent intent6 = new Intent(ARcamera.this,
 							StageSixCamera.class);
@@ -192,7 +192,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				break;
 
 			case 8:
-				if (x > 40 && x < 100 && y < 5 && y > -5 && z > 65 && z < 85
+				if (((x>110 && x < 140) || (x < 175 && x >145 ))&& (y < 5 || y > 170) && z > 65 && z < 85
 						&& index == false) {
 					Intent intent8 = new Intent(ARcamera.this,
 							StageEightActivity.class);
@@ -202,12 +202,42 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 88:
-				if (x > 40 && x < 100 && y < 5 && y > -5 && z > 65 && z < 85
+				if (((x>110 && x < 140) || (x < 175 && x >145 ))&& (y < 5 || y > 170) && z > 65 && z < 85
 						&& index == false) {
 					Intent intent8 = new Intent(ARcamera.this,
 							StageEightActivity.class);
 					intent8.putExtra("state", true);
 					startActivityForResult(intent8, 8);
+					index = true;
+				}
+				break;
+			case 9:
+				
+				break;
+			case 10:
+				if (x > 28 && x < 88 && (y < 5 || y > 170) && z > 47 && z < 107
+						&& index == false) {
+					Intent intent10 = new Intent(ARcamera.this,
+							StageTenActivity.class);
+					startActivityForResult(intent10, 10);
+					index = true;
+				}
+				break;
+			case 11:
+				if (x > 235 && x < 295 && (y < 5 || y > 170) && z > 47 && z < 107
+						&& index == false) {
+					Intent intent11 = new Intent(ARcamera.this,
+							StageElevenActivity.class);
+					startActivityForResult(intent11, 11);
+					index = true;
+				}
+				break;
+			case 12:
+				if (x > 37 && x < 79 && (y < 5 || y > 170) && z > 41 && z < 101
+						&& index == false) {
+					Intent intent12 = new Intent(ARcamera.this,
+							StageTwelveActivity.class);
+					startActivityForResult(intent12, 12);
 					index = true;
 				}
 				break;
@@ -399,12 +429,29 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				break;
 			case 9:
 				break;
+			case 10:
+				Intent returnIntent10 = new Intent();
+				returnIntent10.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent10);
+				finish();
+				break;
+			case 11:
+				Intent returnIntent11 = new Intent();
+				returnIntent11.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent11);
+				finish();
+				break;
+			case 12:
+				Intent returnIntent12 = new Intent();
+				returnIntent12.putExtra("result", true);
+				setResult(RESULT_OK, returnIntent12);
+				finish();
+				break;
 			default:
 
 				break;
 			}
 		}
-		index=false
-				;
+		index = false;
 	}
 }
