@@ -14,8 +14,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:background="#88FFFFFF">
+        android:background="#88FFFFFF"
+        android:orientation="vertical" >
 
         <TextView
             android:layout_width="fill_parent"
@@ -49,18 +49,24 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="" />
-        <Button 
+
+        <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="event8"
-            android:text="event8"
-            />
-         <Button 
+            android:onClick="event1"
+            android:text="event1" />
+
+        <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="event7"
-            android:text="event7"
-            />
+            android:onClick="event2"
+            android:text="event2" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="event3"
+            android:text="event3" />
     </LinearLayout>
 
 </RelativeLayout>

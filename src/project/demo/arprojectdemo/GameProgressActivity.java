@@ -49,10 +49,11 @@ public class GameProgressActivity extends MapActivity implements
 	private MapView map; // 宣告google map物件
 	private MapController mapController; // 宣告google map控制物件
 	String result = "no event";
-	String url = "http://140.119.19.15/gpsfindevent.php";
+	String record = "";
+	String url;
 	private boolean[] stageAvailability = { true, false, false };
 	private boolean[] stageClear = { false, false, false, false, false, false,
-			false, false, false, false ,false ,false };
+			false, false, false, false, false, false };
 	boolean stage_eight_state = false;
 	LayoutInflater controlInflater = null;
 	long INTERVAL = 1000;
@@ -65,6 +66,9 @@ public class GameProgressActivity extends MapActivity implements
 	Boolean time_state;
 	View viewControl;
 	ddsGameProgressTask gameProgressTask;
+	int[] stagestate = { 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	int past_stage = 0;
+	String putdata;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,7 @@ public class GameProgressActivity extends MapActivity implements
 
 		map = (MapView) findViewById(R.id.mapView); // 載入google map物件
 		mapController = map.getController(); // 設定控制的map物件
+
 		LocationManager status = (LocationManager) (this
 				.getSystemService(Context.LOCATION_SERVICE));
 		if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -91,6 +96,25 @@ public class GameProgressActivity extends MapActivity implements
 			lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 		} catch (Exception e) {
 			tMsg = e.getMessage();
+		}
+
+		String takedata = "";
+		try {
+			url = "http://140.119.19.15/download_user_progress.php";
+			record = new PostTask().execute(takedata).get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String[] record_array = record.split(",");
+		Toast.makeText(this, record, Toast.LENGTH_LONG).show();
+		int j = 0;
+		for (int i = 1; i < 13; i++) {
+			stagestate[i] = Integer.valueOf(record_array[j]);
+			j = j + 1;
 		}
 	}
 
@@ -159,7 +183,7 @@ public class GameProgressActivity extends MapActivity implements
 		// (int) (121.575136 * 1000000)); // 設定地圖座標值:緯度,經度
 		GeoPoint center = new GeoPoint((int) (latitude * 1000000),
 				(int) (longitude * 1000000));
-//		List<Overlay> overlays = map.getOverlays();
+		// List<Overlay> overlays = map.getOverlays();
 		Drawable point_star = getResources().getDrawable(
 				android.R.drawable.star_on);
 		// 設定圖示大小
@@ -167,9 +191,9 @@ public class GameProgressActivity extends MapActivity implements
 				point_star.getMinimumHeight());
 
 		Landmark myLandmark = new Landmark(point_star, center);
-//		if (center != null) {
-//			overlays.add(myLandmark); // 將地標層加入地圖座標層中
-//		}
+		// if (center != null) {
+		// overlays.add(myLandmark); // 將地標層加入地圖座標層中
+		// }
 		map.setSatellite(false);
 		// .setTraffic(true)：一般地圖
 		// .setSatellite(true)：衛星地圖
@@ -201,6 +225,7 @@ public class GameProgressActivity extends MapActivity implements
 			String msg = longitude_text + "," + latitude_text;
 
 			try {
+				url = "http://140.119.19.15/gpsfindevent.php";
 				result = new PostTask().execute(msg).get();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -210,60 +235,61 @@ public class GameProgressActivity extends MapActivity implements
 				e.printStackTrace();
 			}
 
-			if (result.contains("eventA")) {
+			if (result.contains("eventA") && stagestate[1] != 1
+					&& past_stage != 1) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "1");
 				startActivityForResult(intent, 1);
 
-			}
-			if (result.contains("eventB")) {
+			} else if (result.contains("eventB") && stagestate[2] != 1
+					&& past_stage != 2) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						StageTwoActivity.class);
 				intent.putExtra("game", "2");
 				startActivityForResult(intent, 2);
-			}
-			if (result.contains("eventC")) {
+			} else if (result.contains("eventC") && stagestate[3] != 1
+					&& past_stage != 3) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "3");
 				startActivityForResult(intent, 3);
-			}
-			if (result.contains("eventD")) {
+			} else if (result.contains("eventD") && stagestate[4] != 1
+					&& past_stage != 4) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "4");
 				startActivityForResult(intent, 4);
-			}
-			if (result.contains("eventE")) {
+			} else if (result.contains("eventE") && stagestate[5] != 1
+					&& past_stage != 5) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "5");
 				startActivityForResult(intent, 5);
 
-			}
-			if (result.contains("eventF")) {
+			} else if (result.contains("eventF") && stagestate[6] != 1
+					&& past_stage != 6) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "6");
 				startActivityForResult(intent, 6);
 
-			}
-			if (result.contains("eventG")) {
+			} else if (result.contains("eventG") && stagestate[7] != 1
+					&& past_stage != 7) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "7");
 				startActivityForResult(intent, 7);
 
-			}
-			if (result.contains("eventH")) {
+			} else if (result.contains("eventH") && stagestate[8] != 1
+					&& past_stage != 8) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
@@ -283,39 +309,39 @@ public class GameProgressActivity extends MapActivity implements
 					startActivityForResult(intent, 8);
 				}
 
-			}
-			if (result.contains("eventI")) {
+			} else if (result.contains("eventI") && stagestate[9] != 1
+					&& past_stage != 9) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						StageNineActivity.class);
 				intent.putExtra("game", "9");
 				startActivityForResult(intent, 9);
 
-			}
-			if (result.contains("eventJ")) {
+			} else if (result.contains("eventJ") && stagestate[10] != 1
+					&& past_stage != 10) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "10");
 				startActivityForResult(intent, 10);
 
-			}
-			if (result.contains("eventK")) {
+			} else if (result.contains("eventK") && stagestate[11] != 1
+					&& past_stage != 11) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "11");
 				startActivityForResult(intent, 11);
 
-			}
-			if (result.contains("eventL")) {
+			} else if (result.contains("eventL") && stagestate[12] != 1
+					&& past_stage != 12) {
 				Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(GameProgressActivity.this,
 						ARcamera.class);
 				intent.putExtra("game", "12");
 				startActivityForResult(intent, 12);
-
-			}
+			} else
+				past_stage = 0;
 		} else {
 			Toast.makeText(this, "無法定位座標", Toast.LENGTH_SHORT).show();
 
@@ -411,7 +437,7 @@ public class GameProgressActivity extends MapActivity implements
 						if (elapsed <= TIMEOUT) {
 							this.cancel();
 							displayText("時間到，充能失敗，請重新操作");
-						
+
 							if ((gameProgressTask != null)
 									&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
 								gameProgressTask.cancel(true);
@@ -465,6 +491,7 @@ public class GameProgressActivity extends MapActivity implements
 			}
 		});
 	}
+
 	public void removeView() {
 		this.runOnUiThread(new Runnable() {
 			@Override
@@ -486,42 +513,223 @@ public class GameProgressActivity extends MapActivity implements
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case 1:
-				stageClear[0] = data.getExtras().getBoolean("result");
-				break;
-			case 2:
+				stagestate[1] = 3;
+				stagestate[2] = 2;
+				past_stage = 1;
 
-				if (data.getStringExtra("result").contains("StageThree")) {
-					int route = 3;
-				} else if (data.getStringExtra("result").contains("StageFour")) {
-					int route = 4;
+				putdata = "game1_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 
+				putdata = "game2_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 2:
+				stagestate[2] = 3;
+				stagestate[3] = 2;
+				past_stage = 2;
+				putdata = "game2_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				putdata = "game3_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 3:
+				stagestate[3] = 3;
+				stagestate[4] = 2;
+				past_stage = 3;
+				putdata = "game3_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-				stageClear[2] = data.getExtras().getBoolean("result");
-				// stageAvailability[2] = false;
-				// Toast.makeText(this, "All Stages Completed!",
-				// Toast.LENGTH_SHORT)
-				// .show();
-				// Intent toResultIntent = new Intent();
-				// toResultIntent.setClass(GameProgressActivity.this,
-				// ResultActivity.class);
-				// startActivity(toResultIntent);
-				// GameProgressActivity.this.finish();
-
+				putdata = "game4_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 4:
-				stageClear[3] = data.getExtras().getBoolean("result");
+				stagestate[4] = 3;
+				stagestate[5] = 2;
+				past_stage = 4;
+				putdata = "game4_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				putdata = "game5_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 5:
-				stageClear[4] = data.getExtras().getBoolean("result");
+				stagestate[5] = 3;
+				past_stage = 5;
+				stagestate[6] = 2;
+				stagestate[7] = 2;
+				stagestate[8] = 2;
+				stagestate[9] = 2;
+				stagestate[10] = 2;
+				stagestate[11] = 2;
+				putdata = "game5_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				putdata = "game6_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				putdata = "game7_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				putdata = "game8_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				putdata = "game9_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				putdata = "game10_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				putdata = "game11_state,2";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 6:
-				stageClear[5] = data.getExtras().getBoolean("result");
+				stagestate[6] = 3;
+				putdata = "game6_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				past_stage = 6;
 				break;
 			case 7:
 				stageClear[6] = data.getExtras().getBoolean("result");
+				past_stage = 7;
 				controlInflater = LayoutInflater.from(getBaseContext());
 				viewControl = controlInflater.inflate(R.layout.timer, null);
 				LayoutParams layoutParamsControl = new LayoutParams(
@@ -531,26 +739,97 @@ public class GameProgressActivity extends MapActivity implements
 				gameProgressTask.execute((Void) null);
 				break;
 			case 8:
-				// stageClear[7] = data.getExtras().getBoolean("result");
-
+				past_stage = 8;
 				break;
 			case 88:
-				stageClear[7] = data.getExtras().getBoolean("result");
-				if (stageClear[7]) {
-					Toast.makeText(this, "Pass", Toast.LENGTH_SHORT).show();
+				stagestate[8] = 3;
+				past_stage = 8;
+				stagestate[7] = 3;
+				stageClear[6] = false;
+				Toast.makeText(this, "Pass", Toast.LENGTH_SHORT).show();
+
+				putdata = "game7_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				putdata = "game8_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				break;
 			case 9:
-				stageClear[8] = data.getExtras().getBoolean("result");
+				stagestate[9] = 3;
+				past_stage = 9;
+				putdata = "game9_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 10:
-				stageClear[9] = data.getExtras().getBoolean("result");
+				stagestate[10] = 3;
+				past_stage = 10;
+				putdata = "game10_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 11:
-				stageClear[10] = data.getExtras().getBoolean("result");
+				stagestate[11] = 3;
+				past_stage = 11;
+				putdata = "game11_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 12:
-				stageClear[11] = data.getExtras().getBoolean("result");
+				stagestate[12] = 3;
+				past_stage = 12;
+				putdata = "game12_state,3";
+				try {
+					url = "http://140.119.19.15/update_user_progress.php";
+					record = new PostTask().execute(putdata).get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			default:
 				break;
@@ -559,29 +838,88 @@ public class GameProgressActivity extends MapActivity implements
 		if (resultCode == RESULT_CANCELED) {
 			switch (requestCode) {
 			case 88:
-				Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
+
+				break;
+
+			default:
 				break;
 			}
-
+		} else {
+			switch (requestCode) {
+			case 1:
+				past_stage = 1;
+				break;
+			case 2:
+				past_stage = 2;
+				break;
+			case 3:
+				past_stage = 3;
+				break;
+			case 4:
+				past_stage = 4;
+				break;
+			case 5:
+				past_stage = 5;
+				break;
+			case 6:
+				past_stage = 6;
+				break;
+			case 7:
+				past_stage = 7;
+				break;
+			case 8:
+				past_stage = 8;
+				break;
+			case 9:
+				past_stage = 9;
+				break;
+			case 10:
+				past_stage = 10;
+				break;
+			case 11:
+				past_stage = 11;
+				break;
+			case 12:
+				past_stage = 12;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
-	public void event7(View view) {
-		Intent intent = new Intent(GameProgressActivity.this,
-				ARcamera.class);
-		intent.putExtra("game", "11");
-		startActivityForResult(intent, 11);
+	public void event1(View view) {
+		result = "eventA";
+		if (result.contains("eventA") && stagestate[1] != 1 && past_stage != 1) {
+			Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(GameProgressActivity.this,
+					ARcamera.class);
+			intent.putExtra("game", "1");
+			startActivityForResult(intent, 1);
+
+		}
 
 	}
 
-	public void event8(View view) {
-
-		Intent intent = new Intent(GameProgressActivity.this,
-				ARcamera.class);
-		intent.putExtra("game", "10");
-		startActivityForResult(intent, 10);
-
-
+	public void event2(View view) {
+		result = "eventB";
+		if (result.contains("eventB") && stagestate[2] != 1 && past_stage != 2) {
+			Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(GameProgressActivity.this,
+					StageTwoActivity.class);
+			intent.putExtra("game", "2");
+			startActivityForResult(intent, 2);
+		}
 	}
 
+	public void event3(View view) {
+		result = "eventC";
+		if (result.contains("eventD") && stagestate[4] != 1 && past_stage != 4) {
+			Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(GameProgressActivity.this,
+					ARcamera.class);
+			intent.putExtra("game", "4");
+			startActivityForResult(intent, 4);
+		}
+	}
 }

@@ -127,7 +127,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			switch (games) {
 			case 1:
 				if (x > 17 && x < 77 && (y < -170 || y > 170) && z > 20
-						&& z < 70) {
+						&& z < 70 &&index==false) {
 					//
 					controlInflater = LayoutInflater.from(getBaseContext());
 					viewControl = controlInflater.inflate(
