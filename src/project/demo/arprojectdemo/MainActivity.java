@@ -135,5 +135,16 @@ public class MainActivity extends Activity {
 			break;
 		}
 	}
-
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		 project.demo.arprojectdemo.lightpower.acquireWakeLock(this);
+		
+		}
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		 project.demo.arprojectdemo.lightpower.releaseWakeLock(this);
+		
+		}
 }

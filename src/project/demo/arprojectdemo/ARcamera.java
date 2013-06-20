@@ -126,7 +126,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			// Toast.makeText(this, game, Toast.LENGTH_SHORT).show();
 			switch (games) {
 			case 1:
-				if (x > 24 && x < 84 && (y < -170 || y > 170) && z > 10
+				if (x > 17 && x < 77 && (y < -170 || y > 170) && z > 20
 						&& z < 70) {
 					//
 					controlInflater = LayoutInflater.from(getBaseContext());
@@ -153,8 +153,8 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 4:
-				if (x > 75 && x < 125 && (y < 5 || y > 170) && z > 70 && z < 90
-						&& index == false) {
+				if (x > 256 && x < 316 && (y < 5 || y > 170) && z > 60
+						&& z < 80 && index == false) {
 					Intent intent4 = new Intent(ARcamera.this,
 							StageFourActivity.class);
 					startActivityForResult(intent4, 4);
@@ -163,8 +163,8 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 5:
-				if (x > 61 && x < 126 && (y < 5 || y > 170) && z > 43 && z < 103
-						&& index == false) {
+				if (x > 61 && x < 126 && (y < 5 || y > 170) && z > 53
+						&& z < 113 && index == false) {
 					Intent intent5 = new Intent(ARcamera.this,
 							StageFiveActivity.class);
 					startActivityForResult(intent5, 5);
@@ -172,8 +172,8 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 6:
-				if (x > 238 && x < 298 && (y < 5 || y > 170) && z > 46 && z < 106
-						&& index == false) {
+				if (x > 254 && x < 314 && (y < 5 || y > 170) && z > 56
+						&& z < 116 && index == false) {
 					Intent intent6 = new Intent(ARcamera.this,
 							StageSixCamera.class);
 					startActivityForResult(intent6, 6);
@@ -181,7 +181,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 7:
-				if (x > 25 && x < 75 && y < 10 && y > -10 && z > 15 && z < 45
+				if (x > 59 && x < 119 && y < 10 && y > -10 && z > 20 && z < 55
 						&& index == false) {
 
 					Intent intent7 = new Intent(ARcamera.this,
@@ -192,7 +192,8 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				break;
 
 			case 8:
-				if (((x>110 && x < 140) || (x < 175 && x >145 ))&& (y < 5 || y > 170) && z > 65 && z < 85
+				if (((x > 74 && x < 114) || (x > 177 && x < 237))
+						&& (y < 5 || y > 170) && z > 65 && z < 90
 						&& index == false) {
 					Intent intent8 = new Intent(ARcamera.this,
 							StageEightActivity.class);
@@ -202,7 +203,8 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 88:
-				if (((x>110 && x < 140) || (x < 175 && x >145 ))&& (y < 5 || y > 170) && z > 65 && z < 85
+				if (((x > 74 && x < 114) || (x > 177 && x < 237))
+						&& (y < 5 || y > 170) && z > 65 && z < 90
 						&& index == false) {
 					Intent intent8 = new Intent(ARcamera.this,
 							StageEightActivity.class);
@@ -212,10 +214,10 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 9:
-				
+
 				break;
 			case 10:
-				if (x > 28 && x < 88 && (y < 5 || y > 170) && z > 47 && z < 107
+				if (x > 28 && x < 88 && (y < 5 || y > 170) && z > 51 && z < 111
 						&& index == false) {
 					Intent intent10 = new Intent(ARcamera.this,
 							StageTenActivity.class);
@@ -224,7 +226,8 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 11:
-				if (x > 235 && x < 295 && (y < 5 || y > 170) && z > 47 && z < 107
+				if (((x > 235 && x < 295) && (y < 5 || y > 170) && (z > 47 && z < 107))
+						|| (x > 250 && x < 310 && (y < 5 || y > 170) && z > 25 && z < 60)
 						&& index == false) {
 					Intent intent11 = new Intent(ARcamera.this,
 							StageElevenActivity.class);
@@ -233,7 +236,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 12:
-				if (x > 37 && x < 79 && (y < 5 || y > 170) && z > 41 && z < 101
+				if (x > 46 && x < 86 && (y < 5 || y > 170) && z > 31 && z < 91
 						&& index == false) {
 					Intent intent12 = new Intent(ARcamera.this,
 							StageTwelveActivity.class);

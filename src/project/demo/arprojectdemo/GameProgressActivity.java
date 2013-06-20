@@ -359,7 +359,7 @@ public class GameProgressActivity extends MapActivity implements
 		// mylayer.enableMyLocation();
 		// 指定向GPS裝置註冊要求取得地理資訊
 		lms.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
+		project.demo.arprojectdemo.lightpower.acquireWakeLock(this);
 	}
 
 	@Override
@@ -388,7 +388,7 @@ public class GameProgressActivity extends MapActivity implements
 		// if (getService) {
 		lms.removeUpdates(this); // 離開頁面時停止更新
 		// mylayer.disableMyLocation();
-
+		project.demo.arprojectdemo.lightpower.releaseWakeLock(this);
 	}
 
 	private class ddsGameProgressTask extends AsyncTask<Void, Void, Void> {
