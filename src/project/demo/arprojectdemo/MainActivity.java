@@ -197,7 +197,7 @@ public class MainActivity extends Activity {
 			settings = getPreferences(MODE_PRIVATE);
 			settings = getSharedPreferences("setting", 0);
 			SharedPreferences.Editor editor = settings.edit();
-			editor.putString("user", params[0]);  
+			editor.putString("user",params[0]);  
 			settings = getSharedPreferences("setting", 0);
 			editor.commit();
 			return sendPostDataToInternet(params[0]); 
