@@ -1,16 +1,34 @@
 package project.demo.arprojectdemo;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	ImageButton Games, GamesNew, GamesContinue, Settings, Rankings,
@@ -18,13 +36,35 @@ public class MainActivity extends Activity {
 	LinearLayout menu, load_games;
 	ImageView logo;
 	int menuStair;
-
+	String url;
+	SharedPreferences settings;
+	int user_id ;
+	String user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		viewInitial();
 		menuInitial();
+
+		
+		
+		
+		user = getIntent().getStringExtra("user_id");
+//		user_id = Integer.parseInt(user);
+//		 String user = Integer.toString(user_id);
+		 Log.e("sss", user );
+		Toast.makeText(this, user, Toast.LENGTH_SHORT).show();
+		try {
+			url = "http://140.119.19.15/update_fetch_user_id.php";
+			new PostTask().execute(user).get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void viewInitial() {
@@ -135,16 +175,55 @@ public class MainActivity extends Activity {
 			break;
 		}
 	}
+
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		 project.demo.arprojectdemo.lightpower.acquireWakeLock(this);
-		
-		}
+		project.demo.arprojectdemo.lightpower.acquireWakeLock(this);
+
+	}
+
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		 project.demo.arprojectdemo.lightpower.releaseWakeLock(this);
-		
+		project.demo.arprojectdemo.lightpower.releaseWakeLock(this);
+
+	}
+
+	public class PostTask extends AsyncTask<String, Void, String> {
+
+		@Override
+		protected String doInBackground(String... params) {
+			settings = getPreferences(MODE_PRIVATE);
+			settings = getSharedPreferences("setting", 0);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putString("user", params[0]);  
+			settings = getSharedPreferences("setting", 0);
+			editor.commit();
+			return sendPostDataToInternet(params[0]); 
 		}
+
+	}
+
+	public String sendPostDataToInternet(String strText) {
+		//
+		HttpPost httpRequest = new HttpPost(url);
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("data", strText));
+		try {
+
+			HttpClient httpclient = new DefaultHttpClient();
+			httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			HttpResponse response = httpclient.execute(httpRequest);
+			String strResult = EntityUtils.toString(response.getEntity());
+			return strResult;
+
+		} catch (Exception e) {
+			// Toast.makeText(this, e.getMessage().toString(),
+			// Toast.LENGTH_SHORT)
+			// .show();
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

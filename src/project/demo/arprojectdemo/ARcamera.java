@@ -64,7 +64,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-		// 取得系統定位服務
+		// ��蝟餌絞摰���
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
@@ -104,7 +104,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 
 	public void onSensorChanged(SensorEvent event) {
 		if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
-			// 这里我们可以得到数据，然后根据需要来处理
+			// 餈��賑�臭誑敺�唳嚗��桅�閬憭�
 			float x = event.values[SensorManager.DATA_X];
 			float y = event.values[SensorManager.DATA_Y];
 			float z = event.values[SensorManager.DATA_Z];
@@ -181,7 +181,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 7:
-				if (x > 59 && x < 119 && y < 10 && y > -10 && z > 20 && z < 55
+				if (x > 0 && x < 50 && y < 10 && y > -10 && z > 10 && z < 55
 						&& index == false) {
 
 					Intent intent7 = new Intent(ARcamera.this,
@@ -226,8 +226,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 11:
-				if (((x > 235 && x < 295) && (y < 5 || y > 170) && (z > 47 && z < 107))
-						|| (x > 250 && x < 310 && (y < 5 || y > 170) && z > 25 && z < 60)
+				if (x > 250 && x < 310 && (y < 5 || y > 170) && z > 25 && z < 60
 						&& index == false) {
 					Intent intent11 = new Intent(ARcamera.this,
 							StageElevenActivity.class);
@@ -236,7 +235,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				}
 				break;
 			case 12:
-				if (x > 46 && x < 86 && (y < 5 || y > 170) && z > 31 && z < 91
+				if (x > 23 && x < 63 && (y < 5 || y > 170) && z > 50 && z < 91
 						&& index == false) {
 					Intent intent12 = new Intent(ARcamera.this,
 							StageTwelveActivity.class);
@@ -256,21 +255,21 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 	}
 
 	private OnTouchListener imgListener = new OnTouchListener() {
-		private float x, y; // 原本圖片存在的X,Y軸位置
-		private int mx, my; // 圖片被拖曳的X ,Y軸距離長度
+		private float x, y; // ���摮�,Y頠訾�蝵�
+		private int mx, my; // ��鋡急��喟�X ,Y頠貉��ａ摨�
 
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			// TODO Auto-generated method stub
 			switch (event.getAction()) {
-			// 按下圖片時
+			// ������
 			case MotionEvent.ACTION_DOWN:
 				x = event.getX();
 				y = event.getY();
-				// 移動圖片時
+				// 蝘餃�����
 			case MotionEvent.ACTION_MOVE:
 				mx = (int) (event.getRawX() - x);
-				my = (int) (event.getRawY() - y); // 50應該是標題框長度
+				my = (int) (event.getRawY() - y); // 50�府�舀�憿��瑕漲
 				v.layout(mx, my, mx + v.getWidth(), my + v.getHeight());
 				break;
 			}
@@ -279,8 +278,8 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 			img.getLocationOnScreen(location2);
 			if (event.getAction() == MotionEvent.ACTION_UP) {
 
-				Log.e("address", String.valueOf(mx) + "~~" + String.valueOf(my)); // 記錄目前位置
-				// 获取在当前窗口内的绝对坐标
+				Log.e("address", String.valueOf(mx) + "~~" + String.valueOf(my)); // 閮��桀�雿蔭
+				// �瑕��典��������撖孵���
 				Log.i("image", location2[0] + "~~" + location2[1]);
 				state = isInChangeImageZone(target, location2[0], location2[1]);
 				if (state == true) {
@@ -311,7 +310,7 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 				+ location[0];
 		mChangeImageBackgroundRect.bottom = mChangeImageBackgroundRect.bottom
 				+ location[1];
-		Log.e("view", location[0] + "~~" + location[1]); // 記錄目前位置
+		Log.e("view", location[0] + "~~" + location[1]); // 閮��桀�雿蔭
 
 		return mChangeImageBackgroundRect.contains(x + 50, y + 50);
 	}
@@ -324,10 +323,10 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 
 		if (sensors.size() > 0) {
 			Sensor sensor = sensors.get(0);
-			// // 注册SensorManager
-			// // this->接收sensor的实例
-			// // 接收传感器类型的列表
-			// // 接受的频率
+			// // 瘜典�SensorManager
+			// // this->�交sensor��靘�
+			// // �交隡��函掩���”
+			// // �亙�����
 			mRegisteredSensor = mSensorManager.registerListener(this, sensor,
 					SensorManager.SENSOR_DELAY_FASTEST);
 			// }
@@ -338,8 +337,8 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 	protected void onPause() {
 
 		if (mRegisteredSensor) {
-			// 如果调用了registerListener
-			// 这里我们需要unregisterListener来卸载/取消注册
+			// 憒�靚鈭egisterListener
+			// 餈��賑���unregisterListener�亙頧���瘜典�
 			mSensorManager.unregisterListener(this);
 			mRegisteredSensor = false;
 		}
@@ -457,4 +456,5 @@ public class ARcamera extends Activity implements SurfaceHolder.Callback,
 		}
 		index = false;
 	}
+	
 }

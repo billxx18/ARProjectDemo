@@ -1,57 +1,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".WaterFiveActivity" >
+    android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/layer2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal" >
+        android:layout_weight="2"
+        android:background="@drawable/street"
+        android:orientation="vertical" >
 
         <ImageView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-        </ImageView>
+            android:layout_height="fill_parent"
+            android:layout_gravity="right"
+            android:src="@drawable/cat" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layer3"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:onClick="textchange"
+        android:layout_weight="3"
+        android:background="@drawable/speak_box"
+        android:onClick="text_speak"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/text_content"
+            android:id="@+id/speak_content"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:text="text start" >
+            android:text="Good Moring." >
         </TextView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layer4"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:orientation="vertical" >
 
         <Button
-            android:id="@+id/text_content"
+            android:id="@+id/finish"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:onClick="onReturnResultBtnClick"
-            android:text="@string/returnResult" >
+            android:gravity="center"
+            android:onClick="back"
+            android:text="Finish." 
+            android:visibility="gone">
         </Button>
     </LinearLayout>
 

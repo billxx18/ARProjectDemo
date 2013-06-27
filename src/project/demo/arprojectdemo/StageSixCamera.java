@@ -1,7 +1,6 @@
 package project.demo.arprojectdemo;
 
 import java.io.File;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,7 +13,7 @@ import android.view.View;
 
 public class StageSixCamera extends Activity {
 	Uri outputFileUri;
-	Bitmap bmp;
+	Bitmap picture_bmp;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,7 +21,7 @@ public class StageSixCamera extends Activity {
 
 	}
 
-	public void go(View view) {
+	public void take_picture(View view) {
 		Intent intent = new Intent(
 				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);// 利用intent去開啟android本身的照相介面
 
@@ -59,10 +58,10 @@ public class StageSixCamera extends Activity {
 			case 0:
 				// bmp = BitmapFactory.decodeFile(outputFileUri.getPath()); //
 				// 利用BitmapFactory去取得剛剛拍照的圖像
-				bmp = (Bitmap) data.getExtras().get("data");
+				picture_bmp = (Bitmap) data.getExtras().get("data");
 				Intent intent = new Intent(StageSixCamera.this,
 						StageSixActivity.class);
-				intent.putExtra("bmp", bmp);
+				intent.putExtra("bmp", picture_bmp);
 				startActivityForResult(intent, 1);
 				break;
 			case 1:

@@ -11,18 +11,18 @@ import android.widget.TextView;
 public class StageEightActivity extends Activity {
 	Button onTakeEnergyBtnClick, onReturnResultBtnClick;
 	TextView hint;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stage_eight);
 
 		Boolean state = getIntent().getExtras().getBoolean("state");
-		
+		//
 		onTakeEnergyBtnClick = (Button) findViewById(R.id.onTakeEnergyBtnClick);
 		onReturnResultBtnClick = (Button) findViewById(R.id.onReturnResultBtnClick);
 		hint = (TextView) findViewById(R.id.hint);
-		
+		//
 		if (state == true) {
 			onTakeEnergyBtnClick.setVisibility(View.VISIBLE);
 			onReturnResultBtnClick.setVisibility(View.GONE);
@@ -39,11 +39,9 @@ public class StageEightActivity extends Activity {
 		returnIntent.putExtra("result", true);
 		setResult(RESULT_OK, returnIntent);
 		finish();
-
 	}
 
 	public void onReturnResultBtnClick(View v) {
-		
 		Intent returnIntent = new Intent();
 		returnIntent.putExtra("result", true);
 		setResult(RESULT_OK, returnIntent);

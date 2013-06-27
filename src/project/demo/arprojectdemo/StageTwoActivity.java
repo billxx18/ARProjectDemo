@@ -86,10 +86,9 @@ public class StageTwoActivity extends Activity {
 								// TODO Auto-generated method stub
 								dialog.dismiss();
 								Intent returnIntent = new Intent();
-								returnIntent.putExtra("result", "StageThree");
+								returnIntent.putExtra("result", true);
 								setResult(RESULT_OK, returnIntent);
-								finish();
-							}
+								finish();							}
 						});
 		builder.create().show();
 	}
@@ -107,8 +106,7 @@ public class StageTwoActivity extends Activity {
 								// TODO Auto-generated method stub
 								dialog.dismiss();
 								Intent returnIntent = new Intent();
-								returnIntent.putExtra("result", "StageFour");
-								setResult(RESULT_OK, returnIntent);
+								setResult(RESULT_CANCELED, returnIntent);
 								finish();
 							}
 						});

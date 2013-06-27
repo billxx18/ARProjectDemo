@@ -37,10 +37,10 @@ public class StageSixActivity extends Activity {
 
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-		Bitmap bmp = (Bitmap) extras.get("bmp");
+		Bitmap picture_bmp = (Bitmap) extras.get("bmp");
 		ImageView image = (ImageView) findViewById(R.id.source_image);
 
-		image.setImageBitmap(bmp);
+		image.setImageBitmap(picture_bmp);
 		buttons = findButtons();
 
 		for (int i = 0; i < 9; i++) {
@@ -76,11 +76,6 @@ public class StageSixActivity extends Activity {
 	public Button[] findButtons() {
 
 		ImageView image = (ImageView) findViewById(R.id.source_image);
-		// Bitmap bmp = BitmapFactory.decodeFile(outputFileUri.getPath()); //
-		// 利用BitmapFactory去取得剛剛拍照的圖像
-		// image.setImageBitmap(bmp);
-
-		// image.setImageResource(R.drawable.dogwolf);
 		blockimages = splitImage(image, smallimage_Numbers);
 
 		b[0] = (Button) findViewById(R.id.Button00);
@@ -195,9 +190,6 @@ public class StageSixActivity extends Activity {
 
 		for (int i = 0; i < 9; i++) {
 			int text = cells.get(i);
-			// LinearLayout.LayoutParams absParams = (LinearLayout.LayoutParams)
-			// buttons[text]
-			// .getLayoutParams();
 			switch (i) {
 			case (0):
 				b[0].setText(String.valueOf(text));
@@ -220,10 +212,7 @@ public class StageSixActivity extends Activity {
 				} else
 					b[1].setBackgroundResource(android.R.color.transparent);
 				break;
-			// absParams.x = 110;
-			// absParams.y = 5;
-			// buttons[text].setLayoutParams(absParams);
-
+				
 			case (2):
 				b[2].setText(String.valueOf(text));
 				if (text != 0) {
@@ -234,9 +223,6 @@ public class StageSixActivity extends Activity {
 				} else
 					b[2].setBackgroundResource(android.R.color.transparent);
 				break;
-			// absParams.x = 215;
-			// absParams.y = 5;
-			// buttons[text].setLayoutParams(absParams);
 
 			case (3):
 				b[3].setText(String.valueOf(text));
@@ -248,9 +234,6 @@ public class StageSixActivity extends Activity {
 				} else
 					b[3].setBackgroundResource(android.R.color.transparent);
 				break;
-			// absParams.x = 5;
-			// absParams.y = 110;
-			// buttons[text].setLayoutParams(absParams);
 
 			case (4):
 				b[4].setText(String.valueOf(text));
@@ -262,9 +245,6 @@ public class StageSixActivity extends Activity {
 				} else
 					b[4].setBackgroundResource(android.R.color.transparent);
 				break;
-			// absParams.x = 110;
-			// absParams.y = 110;
-			// buttons[text].setLayoutParams(absParams);
 
 			case (5):
 				b[5].setText(String.valueOf(text));
@@ -276,10 +256,7 @@ public class StageSixActivity extends Activity {
 				} else
 					b[5].setBackgroundResource(android.R.color.transparent);
 				break;
-			// absParams.x = 215;
-			// absParams.y = 110;
-			// buttons[text].setLayoutParams(absParams);
-
+				
 			case (6):
 				b[6].setText(String.valueOf(text));
 				if (text != 0) {
@@ -290,9 +267,6 @@ public class StageSixActivity extends Activity {
 				} else
 					b[6].setBackgroundResource(android.R.color.transparent);
 				break;
-			// absParams.x = 5;
-			// absParams.y = 215;
-			// buttons[text].setLayoutParams(absParams);
 
 			case (7):
 				b[7].setText(String.valueOf(text));
@@ -304,9 +278,6 @@ public class StageSixActivity extends Activity {
 				} else
 					b[7].setBackgroundResource(android.R.color.transparent);
 				break;
-			// absParams.x = 110;
-			// / absParams.y = 215;
-			// buttons[text].setLayoutParams(absParams);
 
 			case (8):
 				b[8].setText(String.valueOf(text));
@@ -318,9 +289,6 @@ public class StageSixActivity extends Activity {
 				} else
 					b[8].setBackgroundResource(android.R.color.transparent);
 				break;
-			// absParams.x = 215;
-			// absParams.y = 215;
-			// buttons[text].setLayoutParams(absParams);
 
 			}
 

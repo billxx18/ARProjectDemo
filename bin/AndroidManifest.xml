@@ -15,6 +15,10 @@
         android:minSdkVersion="13"
         android:targetSdkVersion="17" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,15 +38,32 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity
-            android:name="project.demo.arprojectdemo.MainActivity"
-            android:configChanges="locale"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
+            android:name="project.demo.arprojectdemo.FBLogin"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.MainActivity"
+            android:configChanges="locale"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="project.demo.arprojectdemo.MainFragment"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="project.demo.arprojectdemo.RankingsActivity"
@@ -73,6 +94,9 @@
             android:configChanges="locale"
             android:label="@string/title_activity_game_progress"
             android:screenOrientation="landscape" >
+            <meta-data
+                android:name="com.google.android.maps.v2.API_KEY"
+                android:value="your_api_key" />
         </activity>
         <activity
             android:name="project.demo.arprojectdemo.StageOneActivity"

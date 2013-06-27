@@ -1,113 +1,171 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/window"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:background="#000000"
+    android:orientation="vertical"
+    android:weightSum="7"
+    tools:context=".MainActivity" >
 
     <FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal" >
-
-            <LinearLayout
-                android:id="@+id/column1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/img1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/b"
-                    android:visibility="gone" >
-                </ImageView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/column2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/img2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/b"
-                    android:visibility="gone" >
-                </ImageView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/column3"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/img3"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/b"
-                    android:visibility="gone" >
-                </ImageView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/column4"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/img4"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/b"
-                    android:visibility="gone" >
-                </ImageView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/column5"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:id="@+id/img5"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/b"
-                    android:visibility="gone" >
-                </ImageView>
-            </LinearLayout>
-        </LinearLayout>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
 
         <ImageView
-            android:id="@+id/img0"
+            android:id="@+id/dagaforce"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:scaleType="fitXY"
+            android:src="@drawable/dagaforce" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:src="@drawable/a" >
-        </ImageView>
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:text="Enemy HP: " />
+
+            <TextView
+                android:id="@+id/enemyHp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:text="" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/secondThirdStatusLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="92dp"
+                android:layout_marginTop="14dp"
+                android:clickable="false"
+                android:src="@drawable/redpoint" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:layout_alignTop="@+id/imageView1"
+                android:layout_marginLeft="139dp"
+                android:layout_toRightOf="@+id/imageView1"
+                android:clickable="false"
+                android:src="@drawable/redpoint" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:layout_below="@+id/imageView2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="37dp"
+                android:layout_toRightOf="@+id/imageView2"
+                android:clickable="false"
+                android:src="@drawable/redpoint" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:layout_alignBottom="@+id/imageView3"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="14dp"
+                android:clickable="false"
+                android:src="@drawable/redpoint" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_alignTop="@+id/imageView3"
+                android:layout_marginRight="43dp"
+                android:layout_marginTop="29dp"
+                android:clickable="false"
+                android:src="@drawable/redpoint" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/imageView4"
+                android:layout_marginBottom="26dp"
+                android:layout_marginRight="19dp"
+                android:clickable="false"
+                android:src="@drawable/redpoint" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:layout_alignTop="@+id/imageView5"
+                android:layout_toRightOf="@+id/imageView2"
+                android:clickable="false"
+                android:src="@drawable/redpoint" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="6" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/teemo_back" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:text="Your HP: " />
+
+                <TextView
+                    android:id="@+id/yourHp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:text="" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/laserAttack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:clickable="false"
+                android:onClick="onLaserButtonClick"
+                android:text="Laser_enable_if_enemy_hp_>900"
+                android:textSize="15sp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
     </FrameLayout>
 
 </LinearLayout>

@@ -26,8 +26,8 @@ import android.widget.FrameLayout.LayoutParams;
 
 public class StageTenActivity extends Activity implements SensorEventListener {
 	private float xCurrentPos, yCurrentPos;
-	int score, random, lastTime;
-	ddsGameProgressTask gameProgressTask;
+	int score, ghost_random, ghost_location_random, lastTime;
+	GhostShakeProgressTask Game10ProgressTask;
 	private float mLastX, mLastY, mLastZ;
 	private boolean mInitialized;
 	private SensorManager mSensorManager;
@@ -35,26 +35,27 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 	private final float NOISE = (float) 2.0;
 	int time = 0;
 	ImageView[] img = new ImageView[5];
-	LinearLayout frame;
+	FrameLayout frame;
 	AnimationSet animationSet;
 	Animation anim;
 	TextView text;
-	int go = 0;
-	View img3;
+	int ghost_move = 0;
+	View ghost_viewimg;
 	String text2;
 	boolean state = true, index = false;
-
+	int img_height, img_width;
 	int[] location8 = new int[2];
 	int[] location9 = new int[2];
 	long INTERVAL = 50;
 	final static long TIMEOUT = 0;
-	long elapsed = 1000;
+	long elapsed = 1500;
 	Timer timer, timer2;
 	TimerTask task;
 	int newWidth = 0, newHeight = 0;
-	ImageView img2;
+	ImageView ghost_img;
 	private Rect mChangeImageBackgroundRect = null;
-	FrameLayout row1;
+	int count = 0;
+	int frame_width, frame_height;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -69,58 +70,21 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 		img[2] = (ImageView) findViewById(R.id.ghost_left_2);
 		img[3] = (ImageView) findViewById(R.id.ghost_right_1);
 		img[4] = (ImageView) findViewById(R.id.ghost_right_2);
-		frame = (LinearLayout) findViewById(R.id.frame);
-		row1 = (FrameLayout) findViewById(R.id.row1);
+		frame = (FrameLayout) findViewById(R.id.frame);
 		text = (TextView) findViewById(R.id.text);
-		int height = frame.getHeight();
-		int width = frame.getWidth();
-		int height2 = img[3].getHeight();
-		int width2 = img[3].getWidth();
-
-		img[1].getLocationOnScreen(location8);
-		img[3].getLocationOnScreen(location9);
-		
-		// random = ((int) (Math.random() * 2) + 1);
-		// task = new TimerTask() {
-		//
-		// @Override
-		// public void run() {
-		//
-		// elapsed = elapsed - INTERVAL;
-		// if (elapsed <= TIMEOUT) {
-		// this.cancel();
-		// // sssss(img[random]);
-		//
-		// return;
-		// }
-		// // if(some other conditions)
-		// // this.cancel();
-		// // down2(img[random]);
-		// change(img[random]);
-		// }
-		// };
-		// timer = new Timer();
-		// // while (timeup == false) {
-		// timer.scheduleAtFixedRate(task, INTERVAL, INTERVAL);
 
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mAccelerometer = mSensorManager
 				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		mSensorManager.registerListener(this, mAccelerometer,
 				SensorManager.SENSOR_DELAY_NORMAL);
-		for (int i = 1; i < 4; i++) {
+		for (int i = 1; i < 5; i++) {
 			img[i].setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					if(random==1 ||random==2)
-					{
-					sssss(v);
-					}
-					else
-					{
-						sssss2(v);
-					}
+
+					onclick_ghost_init(v);
 					state = false;
 					elapsed = 0;
 
@@ -129,8 +93,8 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 			});
 		}
 
-		gameProgressTask = new ddsGameProgressTask();
-		gameProgressTask.execute((Void) null);
+		Game10ProgressTask = new GhostShakeProgressTask();
+		Game10ProgressTask.execute((Void) null);
 	}
 
 	protected void onResume() {
@@ -183,12 +147,12 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 			tvX.setText(Float.toString(deltaX));
 			tvY.setText(Float.toString(deltaY));
 			tvZ.setText(Float.toString(deltaZ));
-			if (deltaZ > 0) {
+			if (deltaZ > 5) {
 				// iv.setImageResource(R.drawable.horizontal);
 
 				if (time < 40 && index == false) {
 					time = time + 1;
-					text.setText(String.valueOf(time));
+
 				} else
 					index = true;
 
@@ -201,7 +165,7 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 		}
 	}
 
-	private class ddsGameProgressTask extends AsyncTask<Void, Void, Void> {
+	private class GhostShakeProgressTask extends AsyncTask<Void, Void, Void> {
 
 		@Override
 		protected Void doInBackground(Void... params) {
@@ -212,8 +176,10 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 				INTERVAL = 50;
 				elapsed = 1500;
 				state = true;
-				go = 0; // Message msg = new Message();
-				random = ((int) (Math.random() * 4) + 1);
+				ghost_move = 0; // Message msg = new Message();
+				count = 0;
+				ghost_random = ((int) (Math.random() * 4) + 1);
+				ghost_location_random = ((int) (Math.random() * (frame_height-70)) + 1);
 				task = new TimerTask() {
 
 					@Override
@@ -225,17 +191,18 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 							if (state) {
 								time = time - 10;
 							}
-							sssss(img[random]);
+							ghost_init(img[ghost_random]);
 
 							return;
 						}
 						// if(some other conditions)
 						// this.cancel();
 						// down2(img[random]);
-						if (random == 1 || random == 2) {
-							change(img[random]);
+						count = count + 1;
+						if (ghost_random == 1 || ghost_random == 2) {
+							ghost_left_move(img[ghost_random]);
 						} else
-							change2(img[random]);
+							ghost_right_move(img[ghost_random]);
 						;
 					}
 				};
@@ -292,7 +259,7 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			finish2();
+			game_finish();
 		}
 
 	}
@@ -300,18 +267,32 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 	private void shakeView() {
 		if (time < 10) {
 			img[0].setBackgroundResource(R.drawable.castle);
+			img_height = img[0].getHeight();
+			img_width = img[0].getWidth();
+			FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+					FrameLayout.LayoutParams.WRAP_CONTENT,
+					FrameLayout.LayoutParams.WRAP_CONTENT);
+			params.setMargins((frame_width - img_width) / 2, 0, 0, 0);
+			img[0].setLayoutParams(params);
+			text.setText(String.valueOf(time));
 		} else if (time >= 10 && time < 15) {
 			img[0].setBackgroundResource(R.drawable.castle2);
+			text.setText(String.valueOf(time));
 		} else if (time >= 15 && time < 20) {
 			img[0].setBackgroundResource(R.drawable.castle3);
+			text.setText(String.valueOf(time));
 		} else if (time >= 20 && time < 25) {
 			img[0].setBackgroundResource(R.drawable.castle4);
+			text.setText(String.valueOf(time));
 		} else if (time >= 25 && time < 30) {
 			img[0].setBackgroundResource(R.drawable.castle5);
+			text.setText(String.valueOf(time));
 		} else if (time >= 30 && time < 35) {
 			img[0].setBackgroundResource(R.drawable.castle6);
+			text.setText(String.valueOf(time));
 		} else if (time >= 40) {
 			img[0].setBackgroundResource(R.drawable.castle7);
+			text.setText(String.valueOf(time));
 		}
 
 	}
@@ -338,114 +319,105 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 	}
 
 	protected void onDestroy() {
-		if ((gameProgressTask != null)
-				&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
-			gameProgressTask.cancel(true);
+		if ((Game10ProgressTask != null)
+				&& (Game10ProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
+			Game10ProgressTask.cancel(true);
 		}
 		super.onDestroy();
 	}
 
-
-	public void change(ImageView img) {
-		img2 = img;
-
+	public void ghost_left_move(ImageView img) {
+		ghost_img = img;
 		this.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				img2.setVisibility(View.VISIBLE);
-				img2.setBackgroundResource(R.drawable.ghost_left);
-				int height2 = img2.getHeight();
-				int width2 = img2.getWidth();
-				int height = frame.getHeight();
-				int width = frame.getWidth();
+				ghost_img.setVisibility(View.VISIBLE);
+				int ghost_img_height = ghost_img.getHeight();
+				int ghost_img_width = ghost_img.getWidth();
+				// int frame_width = frame.getWidth();
+				// int frame_height = frame.getHeight();
 
-				go = go + (width / 2 - width2) / 30;
-//				img2.layout(0 + go, 0, 0 + go + width2, 0 + height2);
+				
+
+				Log.e("time", Integer.toString(ghost_location_random));
+				ghost_move = ghost_move + (frame_width / 2 - ghost_img_width)
+						/ 29;
+
 				shakeView();
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+						FrameLayout.LayoutParams.WRAP_CONTENT,
+						FrameLayout.LayoutParams.WRAP_CONTENT);
+
+				params.setMargins(0 + ghost_move, ghost_location_random, 0, 0);
+				ghost_img.setLayoutParams(params);
+			}
+		});
+
+	}
+
+	public void ghost_right_move(ImageView img) {
+		ghost_img = img;
+		this.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				ghost_img.setVisibility(View.VISIBLE);
+				int ghost_img_width = ghost_img.getWidth();
+				int ghost_img_height = ghost_img.getHeight();
+//				ghost_location_random = ((int) (Math.random() * (frame_height - ghost_img_height)) + 1);
+
+				ghost_move = ghost_move - (frame_width / 2 - ghost_img_width)
+						/ 29;
+				shakeView();
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+						FrameLayout.LayoutParams.WRAP_CONTENT,
+						FrameLayout.LayoutParams.WRAP_CONTENT);
+
+				params.setMargins((frame_width - ghost_img_width) + ghost_move,
+						ghost_location_random, 0, 0);
+
+				ghost_img.setLayoutParams(params);
+			}
+		});
+
+	}
+
+	public void ghost_init(ImageView img) {
+		ghost_img = img;
+		this.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				ghost_img.setVisibility(View.GONE);
 				LayoutParams params = new LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
-				params.setMargins(0 + go, 0, 0, 0);
-				// OR
-				// params.topMargin = 100;
-				img2.setLayoutParams(params);
+				params.setMargins(0, 0, 0, 0);
+				ghost_img.setLayoutParams(params);
+				shakeView();
 			}
+
 		});
 
 	}
 
-	public void change2(ImageView img) {
-
+	public void onclick_ghost_init(View img) {
+		ghost_viewimg = img;
 		this.runOnUiThread(new Runnable() {
+
 			@Override
 			public void run() {
-				img2.setVisibility(View.VISIBLE);
-				img2.setBackgroundResource(R.drawable.ghost_right);
-				int height2 = img2.getHeight();
-				int width2 = img2.getWidth();
-				int height = frame.getHeight();
-				int width = frame.getWidth();
-
-				go = go - (width / 2 - width2) / 30;
-//				img2.layout((width-width2) + go, 0, (width-width2) + go + width2, 0 + height2);
-				shakeView();
+				ghost_viewimg.setVisibility(View.GONE);
 				LayoutParams params = new LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
-				params.setMargins((width-width2) + go, 0, 0, 0);
-				// OR
-				// params.topMargin = 100;
-				img2.setLayoutParams(params);
-			}
-		});
-
-	}
-
-	public void sssss(View img) {
-		img3 = img;
-		this.runOnUiThread(new Runnable() {
-			int height2 = img3.getHeight();
-			int width2 = img3.getWidth();
-			int height = frame.getHeight();
-			int width = frame.getWidth();
-
-			@Override
-			public void run() {
-				img3.setVisibility(View.GONE);
-				img3.layout(location8[0], location8[1], location8[0] + width2,
-						location8[1] + height2);
-				text.setText(String.valueOf(time));
-				shakeView();
-			}
-
-		});
-
-	}
-
-	public void sssss2(View img) {
-		img3 = img;
-		this.runOnUiThread(new Runnable() {
-			int height2 = img3.getHeight();
-			int width2 = img3.getWidth();
-			int height = frame.getHeight();
-			int width = frame.getWidth();
-			
-			@Override
-			public void run() {
-				img3.setVisibility(View.GONE);
-				LayoutParams params = new LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
-
-				params.setMargins((width-width2) + go, 0, 0, 0);
-				// OR
-				// params.topMargin = 100;
-				img2.setLayoutParams(params);
+				params.setMargins(0, 0, 0, 0);
+				ghost_viewimg.setLayoutParams(params);
 				shakeView();
 			}
 		});
 	}
 
-	public void finish2() {
+	public void game_finish() {
 		Intent returnIntent = new Intent();
 		returnIntent.putExtra("result", true);
 		setResult(RESULT_OK, returnIntent);
@@ -453,4 +425,14 @@ public class StageTenActivity extends Activity implements SensorEventListener {
 		Toast.makeText(this, "Mission Copmlete", Toast.LENGTH_SHORT).show();
 
 	}
+
+	public void onWindowFocusChanged(boolean hasFocus) {
+
+		super.onWindowFocusChanged(hasFocus);
+		img[0].setVisibility(View.VISIBLE);
+		frame_width = frame.getWidth();
+		frame_height = frame.getHeight();
+
+	}
+
 }

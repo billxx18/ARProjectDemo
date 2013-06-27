@@ -1,14 +1,13 @@
 package project.demo.arprojectdemo;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Rect;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -24,9 +23,9 @@ public class StageFourActivity extends Activity {
 			Button15, Button16;
 	TextView score_text;
 	ImageView Boss, img;
-	int score, random, lastTime, emergeInterval;
-	ddsGameProgressTask gameProgressTask;
-	boolean isRecover = false, state = false;
+	int score, random, lastTime;
+	WaterDodgeProgressTask Game4ProgressTask;
+	boolean isRecover = false, match_state = false;
 	LinearLayout[] Button = new LinearLayout[16];
 	private Rect mChangeImageBackgroundRect = null;
 	FrameLayout game;
@@ -66,38 +65,30 @@ public class StageFourActivity extends Activity {
 			public void onClick(View v) {
 				score = score + 1;
 				score_text.setText(Integer.toString(score));
-				if(score==30)
-				{
+				if (score == 30) {
 					Intent returnIntent = new Intent();
 					returnIntent.putExtra("result", true);
 					setResult(RESULT_OK, returnIntent);
-				if ((gameProgressTask != null)
-						&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
-					gameProgressTask.cancel(true);
-				}
-				finish();
+					if ((Game4ProgressTask != null)
+							&& (Game4ProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
+						Game4ProgressTask.cancel(true);
+					}
+					finish();
 				}
 			}
 		});
 		img.setOnTouchListener(imgListener);
-		gameProgressTask = new ddsGameProgressTask();
-		gameProgressTask.execute((Void) null);
+		Game4ProgressTask = new WaterDodgeProgressTask();
+		Game4ProgressTask.execute((Void) null);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.stage_four, menu);
-		return true;
-	}
-
-	private Handler ddsHandler = new Handler(new Handler.Callback() {
+	private Handler WaterDodgeHandler = new Handler(new Handler.Callback() {
 
 		@Override
 		public boolean handleMessage(Message msg) {
-			int[] location4 = new int[2];
+			int[] location_img = new int[2];
 			// target.getLocationInWindow(location);// 获取在整个屏幕内的绝对坐标
-			img.getLocationInWindow(location4);
+			img.getLocationInWindow(location_img);
 			switch (msg.what) {
 			case 1:
 				Button[0].setBackgroundResource(R.drawable.yes_ds);
@@ -107,9 +98,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 1001:
 				Button[0].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[0], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[0], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -123,9 +114,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 2001:
 				Button[1].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[1], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[1], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -139,9 +130,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 3001:
 				Button[2].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[2], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[2], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -156,9 +147,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 4001:
 				Button[3].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[3], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[3], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -172,9 +163,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 5001:
 				Button[4].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[4], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[4], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -188,9 +179,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 6001:
 				Button[5].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[5], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[5], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -204,9 +195,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 7001:
 				Button[6].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[6], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[6], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -220,9 +211,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 8001:
 				Button[7].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[7], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[7], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -236,9 +227,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 9001:
 				Button[8].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[8], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[8], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -252,9 +243,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 10001:
 				Button[9].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[9], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[9], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -268,9 +259,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 11001:
 				Button[10].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[10], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[10], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -284,9 +275,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 12001:
 				Button[11].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[11], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[11], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -300,9 +291,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 13001:
 				Button[12].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[12], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[12], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -316,9 +307,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 14001:
 				Button[13].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[13], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[13], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -332,9 +323,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 15001:
 				Button[14].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[14], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[14], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -349,9 +340,9 @@ public class StageFourActivity extends Activity {
 				break;
 			case 16001:
 				Button[15].setBackgroundResource(R.drawable.bomb);
-				state = isInChangeImageZone(Button[15], location4[0],
-						location4[1]);
-				if (state == true) {
+				match_state = isInChangeImageZone(Button[15], location_img[0],
+						location_img[1]);
+				if (match_state == true) {
 					score = score - 10;
 					score_text.setText(Integer.toString(score));
 				}
@@ -364,11 +355,11 @@ public class StageFourActivity extends Activity {
 		}
 	});
 
-	private class ddsGameProgressTask extends AsyncTask<Void, Void, Void> {
+	private class WaterDodgeProgressTask extends AsyncTask<Void, Void, Void> {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			for (score = 0; score < 50;) {
+			for (score = 0; score < 30;) {
 				if (isCancelled()) {
 					return (null);
 				}
@@ -376,7 +367,7 @@ public class StageFourActivity extends Activity {
 				Message msg = new Message();
 				random = ((int) (Math.random() * 16) + 1);
 				msg.what = random;
-				ddsHandler.sendMessage(msg);
+				WaterDodgeHandler.sendMessage(msg);
 				try {
 					lastTime = 1000;
 					Thread.sleep(lastTime);
@@ -386,7 +377,7 @@ public class StageFourActivity extends Activity {
 
 				Message hit = new Message();
 				hit.what = random * 1000 + 1;
-				ddsHandler.sendMessage(hit);
+				WaterDodgeHandler.sendMessage(hit);
 				try {
 					lastTime = 500;
 					Thread.sleep(lastTime);
@@ -396,10 +387,10 @@ public class StageFourActivity extends Activity {
 
 				Message msgResponse = new Message();
 				msgResponse.what = random * 100;
-				ddsHandler.sendMessage(msgResponse);
+				WaterDodgeHandler.sendMessage(msgResponse);
 				try {
-					emergeInterval = 600;
-					Thread.sleep(emergeInterval);
+					lastTime = 600;
+					Thread.sleep(lastTime);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -415,9 +406,9 @@ public class StageFourActivity extends Activity {
 	}
 
 	protected void onDestroy() {
-		if ((gameProgressTask != null)
-				&& (gameProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
-			gameProgressTask.cancel(true);
+		if ((Game4ProgressTask != null)
+				&& (Game4ProgressTask.getStatus() != AsyncTask.Status.FINISHED)) {
+			Game4ProgressTask.cancel(true);
 		}
 		super.onDestroy();
 	}
@@ -431,8 +422,8 @@ public class StageFourActivity extends Activity {
 			// TODO Auto-generated method stub
 
 			game.measure(0, 0);
-			int width = game.getMeasuredWidth();
-			int height = game.getMeasuredHeight();
+			int game_width = game.getMeasuredWidth();
+			int game_height = game.getMeasuredHeight();
 			switch (event.getAction()) {
 			// 按下圖片時
 			case MotionEvent.ACTION_DOWN:
@@ -443,35 +434,35 @@ public class StageFourActivity extends Activity {
 			case MotionEvent.ACTION_MOVE:
 				mx = (int) (event.getRawX() - x);
 				my = (int) (event.getRawY() - y); // 50應該是標題框長度
-				if (mx > 0 && mx < width && my > 0 && my < height) {
+				if (mx > 0 && mx < game_width && my > 0 && my < game_height) {
 					v.layout(mx - 20, my - 20, mx + v.getWidth(),
 							my + v.getHeight());
-					LayoutParams params2 = new LayoutParams(
+					LayoutParams params = new LayoutParams(
 							LayoutParams.WRAP_CONTENT,
 							LayoutParams.WRAP_CONTENT);
-					int[] location7 = new int[2];
-					v.getLocationInWindow(location7);
-					params2.setMargins(location7[0], location7[1], 0, 0);
-					v.setLayoutParams(params2);
+					int[] location_img_move = new int[2];
+					v.getLocationInWindow(location_img_move);
+					params.setMargins(location_img_move[0], location_img_move[1], 0, 0);
+					v.setLayoutParams(params);
 					break;
 				}
 
 			case MotionEvent.ACTION_UP:
-				int[] location2 = new int[2];
-				img.getLocationInWindow(location2);
+				int[] location_img_stop = new int[2];
+				img.getLocationInWindow(location_img_stop);
 				for (int i = 0; i < 16; i++) {
-					state = isInChangeImageZone(Button[i], location2[0],
-							location2[1]);
+					match_state = isInChangeImageZone(Button[i], location_img_stop[0],
+							location_img_stop[1]);
 
-					if (state == true) {
-						int[] location3 = new int[2];
-						Button[i].getLocationInWindow(location3);
+					if (match_state == true) {
+						int[] location_button = new int[2];
+						Button[i].getLocationInWindow(location_button);
 
 						LayoutParams params = new LayoutParams(
 								LayoutParams.WRAP_CONTENT,
 								LayoutParams.WRAP_CONTENT);
 
-						params.setMargins(location3[0], location3[1], 0, 0);
+						params.setMargins(location_button[0],location_button[1], 0, 0);
 						// OR
 						// params.topMargin= 100;
 
@@ -481,7 +472,7 @@ public class StageFourActivity extends Activity {
 				}
 			}
 			Log.e("address", String.valueOf(mx) + "~~" + String.valueOf(my)
-					+ state); // 記錄目前位置
+					+ match_state); // 記錄目前位置
 
 			return true;
 		}
@@ -494,16 +485,16 @@ public class StageFourActivity extends Activity {
 		}
 		view.getDrawingRect(mChangeImageBackgroundRect);
 
-		int[] location = new int[2];
-		view.getLocationInWindow(location);
+		int[] location_view = new int[2];
+		view.getLocationInWindow(location_view);
 
-		mChangeImageBackgroundRect.left = location[0];
-		mChangeImageBackgroundRect.top = location[1];
+		mChangeImageBackgroundRect.left = location_view[0];
+		mChangeImageBackgroundRect.top = location_view[1];
 		mChangeImageBackgroundRect.right = mChangeImageBackgroundRect.right
-				+ location[0];
+				+ location_view[0];
 		mChangeImageBackgroundRect.bottom = mChangeImageBackgroundRect.bottom
-				+ location[1];
-		Log.e("view", location[0] + "~~" + location[1]); // 記錄目前位置
+				+ location_view[1];
+		Log.e("view", location_view[0] + "~~" + location_view[1]); // 記錄目前位置
 
 		return mChangeImageBackgroundRect.contains(x + 50, y + 50);
 	}
